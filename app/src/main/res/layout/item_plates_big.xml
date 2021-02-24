@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="15dp"
+    android:background="@color/backgroundColor"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:background="#00000000"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/ivPlatePhoto"
+            android:layout_width="330dp"
+            tools:src="@drawable/plate_ph"
+            android:layout_height="340dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="310dp"
+            android:layout_height="330dp"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp">
+
+            <View
+                android:id="@+id/vPlateFavourite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/layerlist_favourite"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp"
+                android:background="@drawable/shape_rounded"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <TextView
+                    android:id="@+id/tvPlateName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textPrimary"
+                    android:textFontWeight="600"
+                    tools:text="Plato de Prueba"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPlateDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textSecondary"
+                    tools:text="Descripcion del plato"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlateName" />
+
+                <TextView
+                    android:id="@+id/tvPlatePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textPrimary"
+                    android:textFontWeight="500"
+                    tools:text="$30"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlateDescription" />
+
+                <TextView
+                    android:id="@+id/tvPlateSINTACC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orange"
+                    tools:text="@string/glutenFree"
+                    android:textSize="14sp"
+                    android:paddingVertical="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlatePrice"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <TextView
+                    android:id="@+id/btnSeeDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="@color/white"
+                    android:textFontWeight="500"
+                    android:text="@string/details"
+                    android:background="@drawable/shape_rounded"
+                    android:backgroundTint="@color/orange"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</com.google.android.material.card.MaterialCardView>

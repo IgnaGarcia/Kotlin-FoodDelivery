@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="60dp">
+
+    <LinearLayout
+        android:id="@+id/boxLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:src="@drawable/ic_splash"
+            android:padding="30dp"
+            android:background="@drawable/shape_circle"
+            android:backgroundTint="@color/primaryBrand"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="20dp"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            android:textFontWeight="700"
+            android:textColor="@color/textPrimary"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/boxBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:paddingVertical="9dp"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/btnSingUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/singup"
+            android:textAllCaps="false"
+            android:paddingVertical="9dp"
+            android:textSize="20sp"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">TeleFood</string>
+    <string name="glutenFree">Apto celíacos</string>
+    <string name="dairyFree">Libre de lácteos</string>
+    <string name="popular">Muy Popular</string>
+    <string name="favourites">Favoritos</string>
+    <string name="offers">Ofertas</string>
+    <string name="trends">Tendencias</string>
+    <string name="more">Más</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="promotion">Promociones del día</string>
+    <string name="seeMore">Ver más</string>
+    <string name="details">Ver detalle</string>
+    <string name="question">¿Qué te gustaría pedir hoy?</string>
+    <string name="login">Ingresar</string>
+    <string name="singup">Registrarse</string>
+
+    <string name="home">Inicio</string>
+    <string name="shopBag">Carrito</string>
+    <string name="search">Buscar</string>
+    <string name="profile">Perfil</string>
+    <string name="clear">Cerrar Sesión</string>
+
+    <string name="username">Nombre de Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="confirmPassword">Confirme la Contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apellido</string>
+    <string name="email">Email</string>
+    <string name="aceptTerms">Estoy de acuerdo con los Términos y Condiciones</string>
+
+    <string name="error">Error al conectarse al servidor</string>
+</resources>

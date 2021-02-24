@@ -1,0 +1,150 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+
+    android:background="@color/gray_400">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/layout_appbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/gray_400"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        android:paddingTop="10dp"
+        android:layout_marginHorizontal="25dp">
+
+        <LinearLayout
+            android:id="@+id/llBoxInputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:layout_marginVertical="10dp"
+                android:textSize="18sp">
+
+                <EditText
+                    android:id="@+id/inputName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/surname"
+                android:layout_marginVertical="10dp"
+                android:textSize="18sp">
+                <EditText
+                    android:id="@+id/inputSurname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:layout_marginVertical="10dp"
+                android:textSize="18sp">
+                <EditText
+                    android:id="@+id/inputUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:layout_marginVertical="10dp"
+                android:textSize="18sp">
+                <EditText
+                    android:id="@+id/inputMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:layout_marginVertical="10dp"
+                android:textSize="20sp"
+                app:helperText=""
+                app:passwordToggleEnabled="true">
+                <EditText
+                    android:id="@+id/inputPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/confirmPassword"
+                android:layout_marginVertical="10dp"
+                android:textSize="20sp"
+                app:passwordToggleEnabled="true">
+                <EditText
+                    android:id="@+id/inputConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/aceptTerms"
+                    android:textAllCaps="false"
+                    android:textFontWeight="600"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="18sp"
+                    android:layout_weight="1"/>
+
+                <CheckBox
+                    android:id="@+id/inputCheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/primaryBrand"
+                    android:layout_weight="4"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSendSingup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/singup"
+                android:paddingVertical="9dp"
+                android:textFontWeight="500"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

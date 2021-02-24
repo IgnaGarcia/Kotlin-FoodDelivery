@@ -1,0 +1,42 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+        <style name="ThemeHome" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">@color/primaryBrand</item>
+        <item name="colorOnPrimary">@color/backgroundColor</item>
+
+        <item name="colorSecondary">@color/secondaryBrand</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:colorBackground">@color/backgroundColor</item>
+
+        <item name="colorSurface">@color/white</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">@color/backgroundColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="fontFamily">@font/poppins</item>
+        <item name="android:fontFamily">@font/poppins</item>
+
+        <item name="android:textViewStyle">@style/PoppinsTextViewStyle</item>
+        <item name="android:buttonStyle">@style/PoppinsButtonStyle</item>
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="ThemeSplash" parent="ThemeHome">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primaryBrand</item>
+    </style>
+
+    <style name="Theme.Ejercicio3" parent="ThemeHome">
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
+    </style>
+
+    <style name="PoppinsTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="PoppinsButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+</resources>

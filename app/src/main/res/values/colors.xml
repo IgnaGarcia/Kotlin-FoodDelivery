@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#E84C4F</color>
+    <color name="red_transparent">#24E84C4F</color>
+    <color name="red_200">#ff7f7b</color>
+    <color name="blue_800">#3E4462</color>
+
+    <color name="orange">#EDA345</color>
+    <color name="orange_200">#ffd474</color>
+    <color name="gray_600">#7E7E7E</color>
+
+    <color name="violet_600">#645DAF</color>
+    <color name="gray_400">#CACACA</color>
+
+    <color name="gray_200">#F8F5F2</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <color name="primaryBrand">@color/red</color>
+    <color name="secondaryBrand">@color/orange</color>
+    <color name="textPrimary">@color/blue_800</color>
+    <color name="textSecondary">@color/gray_600</color>
+    <color name="textTertiary">@color/gray_400</color>
+    <color name="backgroundColor">@color/gray_200</color>
+</resources>

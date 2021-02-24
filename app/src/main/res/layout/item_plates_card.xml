@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp">
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:background="@drawable/shape_rounded"
+       android:padding="12dp"
+       android:weightSum="3.7">
+
+       <LinearLayout
+           android:id="@+id/llImgage"
+           android:layout_weight="1.2"
+           android:orientation="vertical"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:gravity="center">
+
+           <com.google.android.material.card.MaterialCardView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <ImageView
+                   android:id="@+id/ivPlatePhotoCard"
+                   android:layout_width="80dp"
+                   tools:src="@drawable/plate_ph"
+                   android:layout_height="86dp"/>
+           </com.google.android.material.card.MaterialCardView>
+           <TextView
+               android:id="@+id/tvPlateSINTACCCard"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               tools:text="@string/glutenFree"
+               android:textColor="@color/orange"
+               android:textSize="14sp"
+               android:paddingVertical="5dp"/>
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/llTextPlateCard"
+           android:layout_width="0dp"
+           android:layout_weight="2"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_marginHorizontal="10dp">
+
+           <TextView
+               android:id="@+id/tvPlateNameCard"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/textPrimary"
+               tools:text="Plato de prueba"
+               android:textFontWeight="600"
+               android:textSize="16sp"/>
+
+           <TextView
+               android:id="@+id/tvPlatePriceCard"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/textSecondary"
+               tools:text="$30.0"
+               android:layout_weight="1"
+               android:paddingVertical="5dp"
+               android:textFontWeight="400"
+               android:textSize="16sp"/>
+
+           <LinearLayout
+               android:id="@+id/llPopular"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+               <View
+                   android:layout_width="24dp"
+                   android:layout_height="24dp"
+                   android:textColor="@color/white"
+                   android:textSize="12sp"
+                   android:gravity="center"
+                   android:background="@drawable/layerlist_popular"/>
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/popular"
+                   android:textColor="@color/textSecondary"
+                   android:paddingHorizontal="8dp"
+                   android:textSize="13sp"/>
+           </LinearLayout>
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_weight=".5"
+           android:gravity="center|top"
+           android:layout_width="0dp"
+           android:layout_height="match_parent">
+           <View
+               android:id="@+id/vPlateFavouriteCard"
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:background="@drawable/layerlist_favourite"
+               android:elevation="2dp"/>
+       </LinearLayout>
+
+   </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
