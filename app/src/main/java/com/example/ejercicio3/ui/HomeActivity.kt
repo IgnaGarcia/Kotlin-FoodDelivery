@@ -25,7 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeActivity : Fragment(), PlatesBigCardAdapter.OnClickPlate {
+class HomeActivity : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAdapter.OnClickCategorie {
     private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var categorieAdapter : CategorieAdapter? = null
     var plateAdapter : PlatesBigCardAdapter? = null
@@ -45,8 +45,8 @@ class HomeActivity : Fragment(), PlatesBigCardAdapter.OnClickPlate {
         chargeCategories()
         chargePlates()
 
-        val btnSeeMore = activity?.findViewById<TextView>(R.id.btnSeeMore)
-        btnSeeMore!!.setOnClickListener { goToPlatesListActivity() }
+        val btnSeeMore = activity!!.findViewById<TextView>(R.id.btnSeeMore)
+        btnSeeMore.setOnClickListener { goToPlatesListActivity(1) }
     }
 
     //Intent a partir del click en una tarjeta del RecyclerView
@@ -56,9 +56,17 @@ class HomeActivity : Fragment(), PlatesBigCardAdapter.OnClickPlate {
         startActivity(i)
     }
 
-    //Intent a partir del click en "Ver más"
-    fun goToPlatesListActivity(){
+    //Intent a partir del click en una tarjeta del RecyclerView
+    override fun onClickCategorie(categorieId : Int){
         val i = Intent(activity, PlatesListActivity::class.java)
+        i.putExtra(PlatesListActivity.QUERY_ID, categorieId)
+        startActivity(i)
+    }
+
+    //Intent a partir del click en "Ver más"
+    fun goToPlatesListActivity(queryId : Int){
+        val i = Intent(activity, PlatesListActivity::class.java)
+        i.putExtra(PlatesListActivity.QUERY_ID, queryId)
         startActivity(i)
     }
 
@@ -116,7 +124,7 @@ class HomeActivity : Fragment(), PlatesBigCardAdapter.OnClickPlate {
     fun chargeCategories(){
         val categorieList = getCategories(activity!!)
         val rvCategories = activity!!.findViewById<RecyclerView>(R.id.rvCategories)
-        categorieAdapter = CategorieAdapter(categorieList)
+        categorieAdapter = CategorieAdapter(categorieList, this)
 
         rvCategories.adapter = categorieAdapter
         rvCategories.layoutManager = LinearLayoutManager(

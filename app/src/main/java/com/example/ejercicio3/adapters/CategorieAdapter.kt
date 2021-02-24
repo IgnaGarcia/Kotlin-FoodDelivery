@@ -9,17 +9,26 @@ import com.example.ejercicio3.R
 import com.example.ejercicio3.entities.Categorie
 
 
-class CategorieAdapter(var categories : List<Categorie>)
+class CategorieAdapter(var categories : List<Categorie>,
+                       var onClickCategorie : CategorieAdapter.OnClickCategorie)
     : RecyclerView.Adapter<CategorieAdapter.BaseViewHolder>(){
 
-    class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+    inner class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         val icCategorieIcon = view.findViewById<View>(R.id.icCategorieIcon)
         val tvCategorieText = view.findViewById<TextView>(R.id.tvCategorieText)
 
         fun onBind(categorie : Categorie){
             icCategorieIcon.background = categorie.icon
             tvCategorieText.text = categorie.text
+
+            itemView.setOnClickListener{
+                onClickCategorie.onClickCategorie(categorie.id)
+            }
         }
+    }
+
+    interface OnClickCategorie{
+        fun onClickCategorie(categorie : Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)

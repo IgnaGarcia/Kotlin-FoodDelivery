@@ -6,6 +6,7 @@ data class Plate(
         val id: Int,
         val image: String?,
         val glutenFree: Boolean,
+        val cheap: Boolean,
         val cuisines: List<String>?,
         val dairyFree: Boolean,
         val extendedIngredients: List<ExtendedIngredient>,

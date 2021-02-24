@@ -5,13 +5,14 @@ import android.graphics.drawable.Drawable
 import com.example.ejercicio3.R
 
 class Categorie(
-    val text: String,
-    val icon: Drawable
+        val id : Int,
+        val text: String,
+        val icon: Drawable
 )
 
 public fun getCategories(context : Context) : List<Categorie> {
-    return listOf(Categorie(context.getString(R.string.favourites), context.getDrawable(R.drawable.ic_favorite)!!),
-        Categorie(context.getString(R.string.offers), context.getDrawable(R.drawable.ic_offer)!!),
-        Categorie(context.getString(R.string.trends), context.getDrawable(R.drawable.ic_trend)!!),
-        Categorie(context.getString(R.string.more), context.getDrawable(R.drawable.ic_more)!!))
+    return listOf(Categorie(1,context.getString(R.string.favourites), context.getDrawable(R.drawable.ic_favorite)!!),
+        Categorie(3, context.getString(R.string.offers), context.getDrawable(R.drawable.ic_offer)!!),
+        Categorie(2, context.getString(R.string.trends), context.getDrawable(R.drawable.ic_trend)!!),
+        Categorie(4, context.getString(R.string.more), context.getDrawable(R.drawable.ic_more)!!))
 }

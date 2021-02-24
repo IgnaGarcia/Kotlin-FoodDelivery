@@ -19,12 +19,20 @@ import retrofit2.Response
 class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  {
     var plateCardAdapter : PlatesCardAdapter? = null
 
+    companion object{
+        const val QUERY_ID = "query"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plates_list)
 
+        val extra =
+                if (intent.extras?.getInt(QUERY_ID) == null) 1
+                else intent.extras?.getInt(QUERY_ID)
+
         setAppBar()
-        chargePlates()
+        chargePlates(extra!!)
     }
 
     //Intent a partir del click en una tarjeta del RecyclerView
@@ -44,7 +52,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
     }
 
     //Traer los datos de la API
-    private fun getPlates(rvPlatesCards : RecyclerView, tvErrorMessage : TextView){
+    private fun getPlates(rvPlatesCards : RecyclerView, tvErrorMessage : TextView, queryId : Int){
         ApiClient.getServiceClient().getPlates(20)
                 .enqueue(object: Callback<PlateListResponse> {
                     override fun onResponse(call: Call<PlateListResponse>,
@@ -53,7 +61,14 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
                             rvPlatesCards.visibility = View.VISIBLE
                             tvErrorMessage.visibility = View.GONE
                             response.body()?.let{
-                                setPlatesAdapter(rvPlatesCards, it.results)
+                                when(queryId){
+                                    1 -> setPlatesAdapter(rvPlatesCards, it.results)
+                                    2 -> setPlatesAdapter(rvPlatesCards,
+                                            it.results.filter { s -> s.cheap })
+                                    3 -> setPlatesAdapter(rvPlatesCards,
+                                            it.results.filter { s -> s.veryPopular })
+                                }
+
                             }
                         }
                     }
@@ -68,10 +83,10 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
     }
 
     //Llamado a getMorePlates
-    fun chargePlates(){
+    fun chargePlates(queryId : Int){
         val rvPlatesCards = findViewById<RecyclerView>(R.id.rvPlatesCards)
         val tvErrorMessage = findViewById<TextView>(R.id.tvErrorMessage)
-        getPlates(rvPlatesCards, tvErrorMessage)
+        getPlates(rvPlatesCards, tvErrorMessage, queryId)
     }
 
     //Setear texto y color al AppBar
