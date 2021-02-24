@@ -10,7 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.ejercicio3.R
 import com.example.ejercicio3.entities.Plate
 
-class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickPlate) : RecyclerView.Adapter<PlatesBigCardAdapter.BaseViewHolder>(){
+class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickPlate)
+    : RecyclerView.Adapter<PlatesBigCardAdapter.BaseViewHolder>(){
 
     inner class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         val ivPlatePhoto = view.findViewById<ImageView>(R.id.ivPlatePhoto)
@@ -23,10 +24,13 @@ class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickP
 
         fun onBind(plate : Plate){
             Glide.with(ivPlatePhoto.context).load(plate.image).centerCrop().into(ivPlatePhoto)
-            vPlateFavourite.background = if(plate.isFavourite) itemView.context.getDrawable(R.drawable.layerlist_favourite_on)
-                                       else itemView.context.getDrawable(R.drawable.layerlist_favourite)
+            vPlateFavourite.background =
+                if(plate.isFavourite) itemView.context.getDrawable(R.drawable.layerlist_favourite_on)
+                else itemView.context.getDrawable(R.drawable.layerlist_favourite)
             tvPlateName.text = plate.title
-            tvPlateDescription.text = if(plate.cuisines.isNullOrEmpty()) "-" else plate.cuisines.reduce { acc, string -> "$acc, $string" }
+            tvPlateDescription.text =
+                if(plate.cuisines.isNullOrEmpty()) "-"
+                else plate.cuisines.reduce { acc, string -> "$acc, $string" }
             tvPlatePrice.text = "\$${plate.pricePerServing.toString()}"
             tvPlateSINTACC.text = if(plate.glutenFree) itemView.context.getString(R.string.glutenFree) else ""
 
@@ -41,7 +45,8 @@ class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickP
         fun onClickPlate(plate : Int)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlatesBigCardAdapter.BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            : PlatesBigCardAdapter.BaseViewHolder {
         var view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_plates_big, parent, false)
         return BaseViewHolder(view)

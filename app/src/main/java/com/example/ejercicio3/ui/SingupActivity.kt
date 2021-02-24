@@ -28,7 +28,8 @@ class SingupActivity : AppCompatActivity() {
         val btnSingUp = findViewById<Button>(R.id.btnSendSingup)
 
         btnSingUp.setOnClickListener{
-            validate(aceptTerms, inputName, inputSurname, inputMail, inputUsername, inputPass, inputPass2)
+            validate(aceptTerms, inputName, inputSurname,
+                inputMail, inputUsername, inputPass, inputPass2)
         }
     }
 
@@ -45,13 +46,17 @@ class SingupActivity : AppCompatActivity() {
 
     private fun checkNull(content : String?) : Boolean = content != null
 
-    private fun checkLength(content : String, minLength : Int) : Boolean = content.length >= minLength
+    private fun checkLength(content : String, minLength : Int)
+            : Boolean = content.length >= minLength
 
-    private fun checkMail(mail : String) : Boolean = android.util.Patterns.EMAIL_ADDRESS.matcher(mail).matches()
+    private fun checkMail(mail : String)
+            : Boolean = android.util.Patterns.EMAIL_ADDRESS.matcher(mail).matches()
 
-    private fun checkPatron(content : String) : Boolean = """[a-zA-Z\s]*""".toRegex().matches(content)
+    private fun checkPatron(content : String)
+            : Boolean = """[a-zA-Z\s]*""".toRegex().matches(content)
 
-    private fun checkPassword(password : String, confPassword : String) : Boolean = password == confPassword
+    private fun checkPassword(password : String, confPassword : String)
+            : Boolean = password == confPassword
 
 
     private fun validate(aceptTerms : CheckBox,
@@ -73,13 +78,15 @@ class SingupActivity : AppCompatActivity() {
 
         //Validacion de nombre
         if(!checkNull(name)) inputName.error = "El nombre es requerido"
-        else if(!checkLength(name!!, 3)) inputName.error = "El nombre debe tener al menos 3 caracteres"
+        else if(!checkLength(name!!, 3))
+            inputName.error = "El nombre debe tener al menos 3 caracteres"
         else if(!checkPatron(name)) inputName.error = "El nombre debe contener solo letras"
         else isValidName = true
 
         //Validacion de apellido
         if(!checkNull(surname)) inputSurname.error = "El apellido es requerido"
-        else if(!checkLength(surname!!, 3)) inputSurname.error = "El apellido debe tener al menos 3 caracteres"
+        else if(!checkLength(surname!!, 3))
+            inputSurname.error = "El apellido debe tener al menos 3 caracteres"
         else if(!checkPatron(surname)) inputSurname.error = "El apellido debe contener solo letras"
         else isValidSurname = true
 
@@ -90,17 +97,21 @@ class SingupActivity : AppCompatActivity() {
 
         //Validacion de nombre de usuario
         if(!checkNull(username)) inputUser.error = "El nombre de usuario es requerido"
-        else if(!checkLength(username!!, 3)) inputUser.error = "El nombre de usuario debe contener mas de 3 caracteres"
+        else if(!checkLength(username!!, 3))
+            inputUser.error = "El nombre de usuario debe contener mas de 3 caracteres"
         else isValidUsername = true
 
         //Validacion de contraseña
         if(!checkNull(password)) inputPass.setError("La contraseña es requerida", null)
-        else if(!checkLength(password!!, 5)) inputPass.setError("La contraseña debe contener mas de 5 caracteres", null)
+        else if(!checkLength(password!!, 5))
+            inputPass.setError("La contraseña debe contener mas de 5 caracteres", null)
         else isValidPassword = true
 
         //Validacion de confirmacion de contraseña
-        if(!checkNull(confPassword)) inputPass2.setError("La contraseña es requerida", null)
-        else if(!checkPassword(password!!, confPassword!!)) inputPass2.setError("La contraseña no es la misma", null)
+        if(!checkNull(confPassword))
+            inputPass2.setError("La contraseña es requerida", null)
+        else if(!checkPassword(password!!, confPassword!!))
+            inputPass2.setError("La contraseña no es la misma", null)
         else isEqualsPassword = true
 
         //Validacion de checkbox

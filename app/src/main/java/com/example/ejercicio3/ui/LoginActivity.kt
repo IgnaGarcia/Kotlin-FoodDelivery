@@ -38,7 +38,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkNull(content : String?) : Boolean = content != null
-    private fun checkLength(content : String, minLength : Int) : Boolean = content.length >= minLength
+    private fun checkLength(content : String, minLength : Int)
+            : Boolean = content.length >= minLength
 
     private fun validate(inputUser : EditText, inputPass : EditText){
         var isValidUsername = false
@@ -48,18 +49,21 @@ class LoginActivity : AppCompatActivity() {
 
         //Validacion de usuario
         if(!checkNull(username)) inputUser.error = "El nombre de usuario es requerido"
-        else if(!checkLength(username!!, 3)) inputUser.error = "El nombre de usuario debe contener mas de 3 caracteres"
+        else if(!checkLength(username!!, 3))
+            inputUser.error = "El nombre de usuario debe contener mas de 3 caracteres"
         else isValidUsername = true
 
         //Validacion de password
         if(!checkNull(password)) inputPass.setError("La contraseña es requerida", null)
-        else if(!checkLength(password!!, 5)) inputPass.setError("La contraseña debe contener mas de 5 caracteres", null)
+        else if(!checkLength(password!!, 5))
+            inputPass.setError("La contraseña debe contener mas de 5 caracteres", null)
         else isValidPassword = true
 
 
         if(isValidPassword && isValidUsername) {
             val i = Intent(this@LoginActivity, HomeActivity::class.java)
-            sharedPrefManager.saveUser(this@LoginActivity, User(username= username!!, password= password!!))
+            sharedPrefManager.saveUser(this@LoginActivity,
+                User(username= username!!, password= password!!))
             startActivity(i)
         }
     }

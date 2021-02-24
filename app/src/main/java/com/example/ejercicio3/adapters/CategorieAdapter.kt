@@ -9,7 +9,8 @@ import com.example.ejercicio3.R
 import com.example.ejercicio3.entities.Categorie
 
 
-class CategorieAdapter(var categories : List<Categorie>) : RecyclerView.Adapter<CategorieAdapter.BaseViewHolder>(){
+class CategorieAdapter(var categories : List<Categorie>)
+    : RecyclerView.Adapter<CategorieAdapter.BaseViewHolder>(){
 
     class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         val icCategorieIcon = view.findViewById<View>(R.id.icCategorieIcon)
@@ -21,7 +22,8 @@ class CategorieAdapter(var categories : List<Categorie>) : RecyclerView.Adapter<
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategorieAdapter.BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            : CategorieAdapter.BaseViewHolder {
         var view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_categorie, parent, false)
         return BaseViewHolder(view)

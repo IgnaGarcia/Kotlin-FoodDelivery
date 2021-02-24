@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit
 object ApiClient{
     private const val API_KEY = "fd926ca241f8421da10f7370f3cf73a4"
     private const val API_BASE_URL = "https://api.spoonacular.com/"
+    const val URL_COMPLEX = "recipes/complexSearch"
+    const val URL_VEGIE = "diet=vegetarian&addRecipeInformation=true"
 
     private var mInterface : AppService
     private var mRetrofitAdapter : Retrofit
@@ -43,10 +45,10 @@ object ApiClient{
     fun getServiceClient() = mInterface
 
     interface AppService{
-        @GET("recipes/complexSearch?apiKey=$API_KEY&diet=vegetarian&addRecipeInformation=true&number=5")
+        @GET("$URL_COMPLEX?apiKey=$API_KEY&$URL_VEGIE&number=5")
         fun getPlates(): Call<PlateListResponse>
 
-        @GET("recipes/complexSearch?apiKey=$API_KEY&diet=vegetarian&addRecipeInformation=true&number=20")
+        @GET("$URL_COMPLEX?apiKey=$API_KEY&$URL_VEGIE&number=20")
         fun getMorePlates(): Call<PlateListResponse>
 
         @GET("recipes/{plateId}/information?apiKey=$API_KEY")

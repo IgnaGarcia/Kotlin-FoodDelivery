@@ -47,7 +47,8 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
     private fun getMorePlates(rvPlatesCards : RecyclerView, tvErrorMessage : TextView){
         ApiClient.getServiceClient().getMorePlates()
                 .enqueue(object: Callback<PlateListResponse> {
-                    override fun onResponse(call: Call<PlateListResponse>, response: Response<PlateListResponse>) {
+                    override fun onResponse(call: Call<PlateListResponse>,
+                                            response: Response<PlateListResponse>) {
                         if(response.isSuccessful){
                             rvPlatesCards.visibility = View.VISIBLE
                             tvErrorMessage.visibility = View.GONE

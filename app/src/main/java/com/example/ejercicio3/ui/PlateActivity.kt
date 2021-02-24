@@ -54,14 +54,17 @@ class PlateActivity : AppCompatActivity() {
         Glide.with(ivPlatePhotoDetail.context).load(plate.image).into(ivPlatePhotoDetail)
 
         tvPlateNameDetail.text = plate.title
-        tvPlateDescriptionDetail.text = if(plate.cuisines.isNullOrEmpty()) "-" else plate.cuisines.reduce { acc, string -> "$acc, $string" }
+        tvPlateDescriptionDetail.text = if(plate.cuisines.isNullOrEmpty()) "-"
+            else plate.cuisines.reduce { acc, string -> "$acc, $string" }
         tvPlatePriceDetail.text = "\$${plate.pricePerServing.toString()}"
         tvPlateRaiting.text = plate.spoonacularScore.toString()
 
         tvIngredients.text = listToString(plate.extendedIngredients)
 
-        if(plate.glutenFree) llGlutenFree.visibility = View.VISIBLE else llGlutenFree.visibility = View.GONE
-        if(plate.dairyFree) llDairyFree.visibility = View.VISIBLE else llDairyFree.visibility = View.GONE
+        if(plate.glutenFree) llGlutenFree.visibility =
+            View.VISIBLE else llGlutenFree.visibility = View.GONE
+        if(plate.dairyFree) llDairyFree.visibility =
+            View.VISIBLE else llDairyFree.visibility = View.GONE
     }
 
     //Convertir la lista de ingredientes en un string
@@ -81,7 +84,8 @@ class PlateActivity : AppCompatActivity() {
                     tvErr.visibility = View.VISIBLE
                 }
 
-                override fun onResponse(call : Call<PlateResponse>, response : Response<PlateResponse>){
+                override fun onResponse(call : Call<PlateResponse>,
+                                        response : Response<PlateResponse>){
                     if(response.isSuccessful){
                         response.body()?.let{
                             tvErr.visibility= View.GONE
