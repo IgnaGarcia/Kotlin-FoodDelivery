@@ -80,7 +80,7 @@ class HomeActivity : AppCompatActivity(), PlatesBigCardAdapter.OnClickPlate {
 
     //Traer los datos de la API
     private fun getPlates(rvPlatesBig : RecyclerView, tvErrorMessage : TextView){
-        ApiClient.getServiceClient().getPlates()
+        ApiClient.getServiceClient().getPlates(5)
             .enqueue(object: Callback<PlateListResponse> {
                 override fun onResponse(call : Call<PlateListResponse>,
                                         response : Response<PlateListResponse>) {

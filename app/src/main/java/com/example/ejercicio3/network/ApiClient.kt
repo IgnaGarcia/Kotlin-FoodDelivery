@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 object ApiClient{
@@ -45,11 +46,9 @@ object ApiClient{
     fun getServiceClient() = mInterface
 
     interface AppService{
-        @GET("$URL_COMPLEX?apiKey=$API_KEY&$URL_VEGIE&number=5")
-        fun getPlates(): Call<PlateListResponse>
+        @GET("$URL_COMPLEX?apiKey=$API_KEY&$URL_VEGIE")
+        fun getPlates(@Query("number") number: Int): Call<PlateListResponse>
 
-        @GET("$URL_COMPLEX?apiKey=$API_KEY&$URL_VEGIE&number=20")
-        fun getMorePlates(): Call<PlateListResponse>
 
         @GET("recipes/{plateId}/information?apiKey=$API_KEY")
         fun getPlateDetails(@Path("plateId") plateId : Int): Call<PlateResponse>

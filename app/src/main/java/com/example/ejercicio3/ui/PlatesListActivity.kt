@@ -44,8 +44,8 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
     }
 
     //Traer los datos de la API
-    private fun getMorePlates(rvPlatesCards : RecyclerView, tvErrorMessage : TextView){
-        ApiClient.getServiceClient().getMorePlates()
+    private fun getPlates(rvPlatesCards : RecyclerView, tvErrorMessage : TextView){
+        ApiClient.getServiceClient().getPlates(20)
                 .enqueue(object: Callback<PlateListResponse> {
                     override fun onResponse(call: Call<PlateListResponse>,
                                             response: Response<PlateListResponse>) {
@@ -71,7 +71,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
     fun chargePlates(){
         val rvPlatesCards = findViewById<RecyclerView>(R.id.rvPlatesCards)
         val tvErrorMessage = findViewById<TextView>(R.id.tvErrorMessage)
-        getMorePlates(rvPlatesCards, tvErrorMessage)
+        getPlates(rvPlatesCards, tvErrorMessage)
     }
 
     //Setear texto y color al AppBar
