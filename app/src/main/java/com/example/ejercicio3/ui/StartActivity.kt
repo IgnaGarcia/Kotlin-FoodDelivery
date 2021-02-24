@@ -30,7 +30,7 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun goToHome(){
-        val i = Intent(this@StartActivity, HomeActivity::class.java)
+        val i = Intent(this@StartActivity, MainActivity::class.java)
         startActivity(i)
     }
 

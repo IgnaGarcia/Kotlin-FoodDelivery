@@ -25,14 +25,11 @@
         <activity android:name=".ui.LoginActivity"
             android:parentActivityName=".ui.StartActivity"/>
         
-        <activity android:name=".ui.HomeActivity"/>
+        <activity android:name=".ui.MainActivity"/>
         <activity android:name=".ui.PlatesListActivity"
-            android:parentActivityName=".ui.HomeActivity"/>
+            android:parentActivityName=".ui.MainActivity"/>
         <activity android:name=".ui.PlateActivity"
             android:parentActivityName=".ui.PlatesListActivity"/>
-
-        <activity android:name=".ui.ProfileActivity"
-            android:parentActivityName=".ui.HomeActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"
