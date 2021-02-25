@@ -29,7 +29,6 @@ class ProfileFragment : Fragment() {
         bindUserData()
 
         val btnClear = activity!!.findViewById<Button>(R.id.btnClear)
-
         btnClear.setOnClickListener{ goToStart() }
     }
 

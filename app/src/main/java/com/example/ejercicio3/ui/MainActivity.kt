@@ -10,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     companion object{
         var shopBox = ShopBox()
+        var SHOP_KEY = "shop"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        navBottom.selectedItemId = R.id.icHome
+        navBottom.selectedItemId = intent.extras?.getInt(SHOP_KEY) ?: R.id.icHome
     }
 
     private fun openFragment(fragment: Fragment) {

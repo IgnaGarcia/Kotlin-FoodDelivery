@@ -1,5 +1,6 @@
 package com.example.ejercicio3.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -69,6 +70,10 @@ class PlateActivity : AppCompatActivity() {
         val btnBuy = findViewById<TextView>(R.id.btnBuy)
         btnBuy.setOnClickListener {
             MainActivity.shopBox.plateList.add(plate)
+
+            val i = Intent(this@PlateActivity, MainActivity::class.java)
+            i.putExtra(MainActivity.SHOP_KEY, R.id.icBox)
+            startActivity(i)
         }
     }
 

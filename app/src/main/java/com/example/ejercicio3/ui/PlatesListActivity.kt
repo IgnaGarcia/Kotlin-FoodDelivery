@@ -53,7 +53,8 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
                     this, LinearLayoutManager.VERTICAL, false)
         }
        else {
-            getPlates(rvPlatesCards, tvErrorMessage,  queryId, offset+20)
+            val offst = offset + 20
+            getPlates(rvPlatesCards, tvErrorMessage,  queryId, offst)
         }
     }
 
@@ -71,7 +72,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
                                 when(queryId){
                                     1 -> setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
                                     2 -> {
-                                        plates = plates.filter { s -> s.pricePerServing < 70 }
+                                        plates = plates.filter { s -> s.pricePerServing < 80 }
                                         setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
                                     }
                                     3 -> {

@@ -15,6 +15,7 @@ import com.example.ejercicio3.adapters.PlatesCardAdapter
 import com.example.ejercicio3.adapters.ShopBoxAdapter
 import com.example.ejercicio3.entities.User
 import com.example.ejercicio3.local.SharedPreferencesManager
+import com.example.ejercicio3.network.responses.PlateResponse
 
 class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
     var shopBoxAdapter : ShopBoxAdapter? = null
@@ -65,6 +66,15 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
     fun setBottomText(){
         val btnFinished = activity!!.findViewById<TextView>(R.id.btnFinish)
         btnFinished.text =
-                this.getString(R.string.buyFinished) + " $" + MainActivity.shopBox.calcTotal()
+                this.getString(R.string.buyFinished) + " $" + calcTotal(MainActivity.shopBox.plateList)
+    }
+
+    fun calcTotal(plateList : MutableList<PlateResponse>) : Double{
+        var acc = 0.0
+        for(plate in plateList){
+            acc = acc + plate.pricePerServing
+            println("precio total: $acc")
+        }
+        return acc
     }
 }
