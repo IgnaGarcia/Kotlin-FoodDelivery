@@ -45,7 +45,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
 
     //Pasarle al RecyclerView los datos
     fun setPlatesAdapter(rvPlatesCards : RecyclerView, tvErrorMessage : TextView, queryId : Int, offset : Int){
-        if(plates.size > 5){
+        if(plates.size >= 5){
             plateCardAdapter = PlatesCardAdapter(plates, this)
 
             rvPlatesCards.adapter = plateCardAdapter
@@ -71,11 +71,11 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
                                 when(queryId){
                                     1 -> setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
                                     2 -> {
-                                        plates = it.results.filter { s -> s.cheap }
+                                        plates = plates.filter { s -> s.pricePerServing < 70 }
                                         setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
                                     }
                                     3 -> {
-                                        plates = it.results.filter { s -> s.veryPopular }
+                                        plates = plates.filter { s -> s.veryPopular }
                                         setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
                                     }
                                     else -> setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
@@ -108,6 +108,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate  
             1 -> toolbar.text = this.getString(R.string.promotion)
             2 -> toolbar.text = this.getString(R.string.offers)
             3 -> toolbar.text = this.getString(R.string.trends)
+            else -> toolbar.text = this.getString(R.string.promotion)
         }
         toolbar.setTextColor(this.getColorStateList(R.color.textPrimary))
 
