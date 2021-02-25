@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         if(isValidPassword && isValidUsername) {
-            val i = Intent(this@LoginActivity, HomeActivity::class.java)
+            val i = Intent(this@LoginActivity, HomeFragment::class.java)
             sharedPrefManager.saveUser(this@LoginActivity,
                 User(username= username!!, password= password!!))
             startActivity(i)

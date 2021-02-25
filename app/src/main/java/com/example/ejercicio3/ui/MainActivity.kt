@@ -4,9 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.ejercicio3.R
+import com.example.ejercicio3.entities.ShopBox
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+    companion object{
+        var shopBox = ShopBox()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -15,12 +20,17 @@ class MainActivity : AppCompatActivity() {
         navBottom.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.icHome -> {
-                    val fragment = HomeActivity.newInstance()
+                    val fragment = HomeFragment.newInstance()
                     openFragment(fragment)
                     true
                 }
                 R.id.icProfile -> {
-                    val fragment = ProfileActivity.newInstance()
+                    val fragment = ProfileFragment.newInstance()
+                    openFragment(fragment)
+                    true
+                }
+                R.id.icBox -> {
+                    val fragment = ShopBoxFragment.newInstance()
                     openFragment(fragment)
                     true
                 }

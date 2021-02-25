@@ -14,6 +14,7 @@
     <string name="question">¿Qué te gustaría pedir hoy?</string>
     <string name="login">Ingresar</string>
     <string name="singup">Registrarse</string>
+    <string name="buy">Comprar</string>
 
     <string name="home">Inicio</string>
     <string name="shopBag">Carrito</string>

@@ -126,7 +126,7 @@ class SingupActivity : AppCompatActivity() {
     }
 
     fun goToHome(user : User){
-        val i = Intent(this@SingupActivity, HomeActivity::class.java)
+        val i = Intent(this@SingupActivity, HomeFragment::class.java)
         sharedPrefManager.saveUser(this@SingupActivity, user)
         startActivity(i)
     }

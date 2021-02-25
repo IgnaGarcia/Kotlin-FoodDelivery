@@ -1,13 +1,11 @@
 package com.example.ejercicio3.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,18 +18,17 @@ import com.example.ejercicio3.entities.getCategories
 import com.example.ejercicio3.local.SharedPreferencesManager
 import com.example.ejercicio3.network.ApiClient
 import com.example.ejercicio3.network.responses.PlateListResponse
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeActivity : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAdapter.OnClickCategorie {
+class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAdapter.OnClickCategorie {
     private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var categorieAdapter : CategorieAdapter? = null
     var plateAdapter : PlatesBigCardAdapter? = null
 
     companion object {
-        fun newInstance(): HomeActivity = HomeActivity()
+        fun newInstance(): HomeFragment = HomeFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)

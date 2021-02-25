@@ -65,6 +65,11 @@ class PlateActivity : AppCompatActivity() {
             View.VISIBLE else llGlutenFree.visibility = View.GONE
         if(plate.dairyFree) llDairyFree.visibility =
             View.VISIBLE else llDairyFree.visibility = View.GONE
+
+        val btnBuy = findViewById<TextView>(R.id.btnBuy)
+        btnBuy.setOnClickListener {
+            MainActivity.shopBox.plateList.add(plate)
+        }
     }
 
     //Convertir la lista de ingredientes en un string
