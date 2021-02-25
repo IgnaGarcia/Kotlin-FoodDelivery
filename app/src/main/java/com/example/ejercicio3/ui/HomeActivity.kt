@@ -81,7 +81,7 @@ class HomeActivity : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAda
 
     //Traer los datos de la API
     private fun getPlates(rvPlatesBig : RecyclerView, tvErrorMessage : TextView){
-        ApiClient.getServiceClient().getPlates(5)
+        ApiClient.getServiceClient().getPlates(5, 0)
             .enqueue(object: Callback<PlateListResponse> {
                 override fun onResponse(call : Call<PlateListResponse>,
                                         response : Response<PlateListResponse>) {

@@ -47,7 +47,8 @@ object ApiClient{
 
     interface AppService{
         @GET("$URL_COMPLEX?apiKey=$API_KEY&$URL_VEGIE")
-        fun getPlates(@Query("number") number: Int): Call<PlateListResponse>
+        fun getPlates(@Query("number") number: Int,
+                      @Query("offser") offser: Int): Call<PlateListResponse>
 
 
         @GET("recipes/{plateId}/information?apiKey=$API_KEY")

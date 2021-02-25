@@ -12,7 +12,7 @@ class Categorie(
 
 public fun getCategories(context : Context) : List<Categorie> {
     return listOf(Categorie(1,context.getString(R.string.favourites), context.getDrawable(R.drawable.ic_favorite)!!),
-        Categorie(3, context.getString(R.string.offers), context.getDrawable(R.drawable.ic_offer)!!),
-        Categorie(2, context.getString(R.string.trends), context.getDrawable(R.drawable.ic_trend)!!),
+        Categorie(2, context.getString(R.string.offers), context.getDrawable(R.drawable.ic_offer)!!),
+        Categorie(3, context.getString(R.string.trends), context.getDrawable(R.drawable.ic_trend)!!),
         Categorie(4, context.getString(R.string.more), context.getDrawable(R.drawable.ic_more)!!))
 }
