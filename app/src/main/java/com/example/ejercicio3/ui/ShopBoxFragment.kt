@@ -23,7 +23,8 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
         fun newInstance(): ShopBoxFragment = ShopBoxFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?
+                              , savedInstanceState: Bundle?)
             : View? = inflater.inflate(R.layout.activity_shopbox, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,6 +64,7 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
 
     fun setBottomText(){
         val btnFinished = activity!!.findViewById<TextView>(R.id.btnFinish)
-        btnFinished.text = this.getString(R.string.buyFinished) + MainActivity.shopBox.calcTotal()
+        btnFinished.text =
+                this.getString(R.string.buyFinished) + " $" + MainActivity.shopBox.calcTotal()
     }
 }
