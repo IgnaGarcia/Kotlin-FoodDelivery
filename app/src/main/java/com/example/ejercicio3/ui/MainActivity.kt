@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
                     openFragment(fragment)
                     true
                 }
+                R.id.icSearch -> {
+                    val fragment = SearchFragment.newInstance()
+                    openFragment(fragment)
+                    true
+                }
                 else -> false
             }
         }

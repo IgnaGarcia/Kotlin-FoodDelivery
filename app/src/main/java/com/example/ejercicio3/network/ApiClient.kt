@@ -52,6 +52,8 @@ object ApiClient{
         fun getPlates(@Query("number") number: Int,
                       @Query("offset") offset: Int): Call<PlateListResponse>
 
+        @GET("$URL_COMPLEX?apiKey=$API_KEY&$URL_VEGIE&number=20")
+        fun getPlates(@Query("titleMatch") titleMatch: String): Call<PlateListResponse>
 
         @GET("recipes/{plateId}/information?apiKey=$API_KEY")
         fun getPlateDetails(@Path("plateId") plateId : Int): Call<PlateResponse>
