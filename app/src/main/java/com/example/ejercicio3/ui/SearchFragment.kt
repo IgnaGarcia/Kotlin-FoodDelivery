@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio3.R
 import com.example.ejercicio3.adapters.PlatesCardAdapter
+import com.example.ejercicio3.entities.Plate
 import com.example.ejercicio3.network.ApiClient
 import com.example.ejercicio3.network.responses.PlateListResponse
 import com.example.ejercicio3.network.responses.PlateResponse
@@ -19,8 +20,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate {
-    var platesCardAdapter : PlatesCardAdapter? = null
+class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate, SearchView.OnQueryTextListener {
+    var plateCardAdapter : PlatesCardAdapter? = null
 
     companion object {
         fun newInstance(): SearchFragment = SearchFragment()
@@ -34,7 +35,8 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate {
         super.onViewCreated(view, savedInstanceState)
 
         setAppBar()
-        chargePlates()
+        val inputSearch = activity!!.findViewById<SearchView>(R.id.inputSearch)
+        inputSearch.setOnQueryTextListener(this)
     }
 
     //Intent a partir del click en una tarjeta del RecyclerView
@@ -45,12 +47,12 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate {
     }
 
     //Pasarle al RecyclerView los datos
-    fun setPlatesAdapter(rvPlatesCards : RecyclerView){
+    fun setPlatesAdapter(rvPlatesCards : RecyclerView, plates : List<Plate>){
         plateCardAdapter = PlatesCardAdapter(plates, this)
 
         rvPlatesCards.adapter = plateCardAdapter
         rvPlatesCards.layoutManager = LinearLayoutManager(
-                this, LinearLayoutManager.VERTICAL, false)
+                activity, LinearLayoutManager.VERTICAL, false)
     }
 
     //Traer los datos de la API
@@ -63,7 +65,7 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate {
                             rvPlatesCards.visibility = View.VISIBLE
                             tvErrorMessage.visibility = View.GONE
                             response.body()?.let{
-                                setPlatesAdapter(rvPlatesCards)
+                                setPlatesAdapter(rvPlatesCards, it.results)
                             }
                         }
                     }
@@ -77,19 +79,18 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate {
                 })
     }
 
-    //Llamado a getMorePlates
-    fun chargePlates(){
-        val rvPlatesCards = activity!!.findViewById<RecyclerView>(R.id.rvPlatesCards)
-        val tvErrorMessage = activity!!.findViewById<TextView>(R.id.tvErrorMessage)
-        val inputSearch = activity!!.findViewById<SearchView>(R.id.inputSearch)
-
-
-        getPlates(rvPlatesCards, tvErrorMessage, queryString)
-    }
-
     fun setAppBar(){
         val toolbar = activity!!.findViewById<TextView>(R.id.tvToolbar)
         toolbar.text = this.getString(R.string.search)
         toolbar.setTextColor(activity!!.getColorStateList(R.color.textPrimary))
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        val rvPlatesCards = activity!!.findViewById<RecyclerView>(R.id.rvPlatesCards)
+        val tvErrorMessage = activity!!.findViewById<TextView>(R.id.tvErrorMessage)
+        if(query != null) getPlates(rvPlatesCards, tvErrorMessage, query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean = false
 }
