@@ -35,7 +35,11 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate, SearchView.On
         super.onViewCreated(view, savedInstanceState)
 
         setAppBar()
+
         val inputSearch = activity!!.findViewById<SearchView>(R.id.inputSearch)
+        inputSearch.setOnSearchClickListener{
+            onQueryTextSubmit(inputSearch.query.toString())
+        }
         inputSearch.setOnQueryTextListener(this)
     }
 
@@ -75,6 +79,7 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate, SearchView.On
 
                         rvPlatesCards.visibility = View.GONE
                         tvErrorMessage.visibility = View.VISIBLE
+                        tvErrorMessage.text = activity!!.getString(R.string.error)
                     }
                 })
     }
