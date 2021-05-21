@@ -17,6 +17,7 @@ object ApiClient{
     private const val API_KEY = "c34167616f834599a1ccf9a86f2397fd"
     //private const val API_KEY = "fd926ca241f8421da10f7370f3cf73a4"
     //private const val API_KEY = "1e2e85c08c95409fa3c5b99e7c671346"
+
     private const val API_BASE_URL = "https://api.spoonacular.com/"
     const val URL_COMPLEX = "recipes/complexSearch"
     const val URL_VEGIE = "diet=vegetarian&addRecipeInformation=true"
@@ -56,6 +57,6 @@ object ApiClient{
         fun getPlates(@Query("titleMatch") titleMatch: String): Call<PlateListResponse>
 
         @GET("recipes/{plateId}/information?apiKey=$API_KEY")
-        fun getPlateDetails(@Path("plateId") plateId : Int): Call<PlateResponse>
+        fun getPlateDetails(@Path("plateId") plateId : Int): Call<Plate>
     }
 }

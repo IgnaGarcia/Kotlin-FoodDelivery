@@ -5,26 +5,28 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ejercicio3.R
+import com.example.ejercicio3.databinding.ActivityStartBinding
 import com.example.ejercicio3.entities.User
 import com.example.ejercicio3.local.SharedPreferencesManager
 
 class StartActivity : AppCompatActivity() {
     private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
+    private lateinit var binding : ActivityStartBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = ActivityStartBinding.inflate(layoutInflater)
         val user : User? = sharedPrefManager.getUser(this@StartActivity)
 
         if(user != null) goToHome()
         else {
             setTheme(R.style.ThemeHome)
-            setContentView(R.layout.activity_start)
+            setContentView(binding.root)
 
-            val btnLogin = findViewById<Button>(R.id.btnLogin)
+            val btnLogin = binding.btnLogin
             btnLogin.setOnClickListener{ goToLogin() }
 
-            val btnSingUp = findViewById<Button>(R.id.btnSingUp)
+            val btnSingUp = binding.btnSingUp
             btnSingUp.setOnClickListener{ goToSingup() }
         }
     }

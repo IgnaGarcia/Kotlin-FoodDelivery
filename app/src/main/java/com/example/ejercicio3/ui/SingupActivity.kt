@@ -5,27 +5,30 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ejercicio3.R
+import com.example.ejercicio3.databinding.ActivitySingupBinding
 import com.example.ejercicio3.entities.User
 import com.example.ejercicio3.local.SharedPreferencesManager
 
 class SingupActivity : AppCompatActivity() {
     private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
+    private lateinit var binding : ActivitySingupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_singup)
+        binding = ActivitySingupBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setAppBar()
 
-        val inputName = findViewById<EditText>(R.id.inputName)
-        val inputSurname = findViewById<EditText>(R.id.inputSurname)
-        val inputMail = findViewById<EditText>(R.id.inputMail)
-        val inputUsername = findViewById<EditText>(R.id.inputUsername)
-        val inputPass = findViewById<EditText>(R.id.inputPassword)
-        val inputPass2 = findViewById<EditText>(R.id.inputConfirmPassword)
-        val aceptTerms = findViewById<CheckBox>(R.id.inputCheckBox)
+        val inputName = binding.inputName
+        val inputSurname = binding.inputSurname
+        val inputMail = binding.inputMail
+        val inputUsername = binding.inputUsername
+        val inputPass = binding.inputPassword
+        val inputPass2 = binding.inputConfirmPassword
+        val aceptTerms = binding.inputCheckBox
 
-        val btnSingUp = findViewById<Button>(R.id.btnSendSingup)
+        val btnSingUp = binding.btnSendSingup
 
         btnSingUp.setOnClickListener{
             validate(aceptTerms, inputName, inputSurname,
@@ -35,11 +38,11 @@ class SingupActivity : AppCompatActivity() {
 
     //Color y Texto de appbar
     private fun setAppBar(){
-        val toolbar = findViewById<TextView>(R.id.tvToolbar)
+        val toolbar = binding.appBar.tvToolbar
         toolbar.text = this.getString(R.string.singup)
         toolbar.setTextColor(this.getColorStateList(R.color.textPrimary))
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(binding.appBar.toolbar)
         supportActionBar!!.title = ""
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
@@ -125,8 +128,8 @@ class SingupActivity : AppCompatActivity() {
         }
     }
 
-    fun goToHome(user : User){
-        val i = Intent(this@SingupActivity, HomeFragment::class.java)
+    private fun goToHome(user : User){
+        val i = Intent(this@SingupActivity, MainActivity::class.java)
         sharedPrefManager.saveUser(this@SingupActivity, user)
         startActivity(i)
     }

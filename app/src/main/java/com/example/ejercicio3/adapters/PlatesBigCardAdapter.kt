@@ -8,24 +8,31 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ejercicio3.R
+import com.example.ejercicio3.databinding.ItemPlatesBigBinding
 import com.example.ejercicio3.entities.Plate
+import com.example.ejercicio3.entities.User
+import com.example.ejercicio3.local.SharedPreferencesManager
 
 class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickPlate)
     : RecyclerView.Adapter<PlatesBigCardAdapter.BaseViewHolder>(){
 
     inner class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        val ivPlatePhoto = view.findViewById<ImageView>(R.id.ivPlatePhoto)
-        val vPlateFavourite = view.findViewById<View>(R.id.vPlateFavourite)
-        val tvPlateName = view.findViewById<TextView>(R.id.tvPlateName)
-        val tvPlateDescription = view.findViewById<TextView>(R.id.tvPlateDescription)
-        val tvPlatePrice = view.findViewById<TextView>(R.id.tvPlatePrice)
-        val tvPlateSINTACC = view.findViewById<TextView>(R.id.tvPlateSINTACC)
+        private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
+        val user : User = sharedPrefManager.getUser(itemView.context)!!
+        val binding = ItemPlatesBigBinding.bind(view)
+        val ivPlatePhoto = binding.ivPlatePhoto
+        val vPlateFavourite = binding.vPlateFavourite
+        val tvPlateName = binding.tvPlateName
+        val tvPlateDescription = binding.tvPlateDescription
+        val tvPlatePrice = binding.tvPlatePrice
+        val tvPlateSINTACC = binding.tvPlateSINTACC
 
 
         fun onBind(plate : Plate){
             Glide.with(ivPlatePhoto.context).load(plate.image).centerCrop().into(ivPlatePhoto)
             vPlateFavourite.background =
-                if(plate.isFavourite) itemView.context.getDrawable(R.drawable.layerlist_favourite_on)
+                if(user.favourites.contains(plate)) itemView.context.getDrawable(
+                    R.drawable.layerlist_favourite_on)
                 else itemView.context.getDrawable(R.drawable.layerlist_favourite)
             tvPlateName.text = plate.title
             tvPlateDescription.text =
@@ -38,6 +45,19 @@ class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickP
                 onClickPlate.onClickPlate(plate.id)
             }
 
+            vPlateFavourite.setOnClickListener{
+                if(user.favourites.contains(plate)) {
+                    user.removeToFav(plate)
+                    vPlateFavourite.background =
+                        itemView.context.getDrawable(R.drawable.layerlist_favourite)
+                }
+                else {
+                    user.addToFav(plate)
+                    vPlateFavourite.background = itemView.context.getDrawable(
+                        R.drawable.layerlist_favourite_on)
+                }
+                sharedPrefManager.saveUser(itemView.context, user)
+            }
         }
     }
 

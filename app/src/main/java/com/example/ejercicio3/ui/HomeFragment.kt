@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio3.R
 import com.example.ejercicio3.adapters.CategorieAdapter
 import com.example.ejercicio3.adapters.PlatesBigCardAdapter
+import com.example.ejercicio3.databinding.ActivityHomeBinding
 import com.example.ejercicio3.entities.Plate
 import com.example.ejercicio3.entities.User
 import com.example.ejercicio3.entities.getCategories
@@ -22,18 +23,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAdapter.OnClickCategorie {
+class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
+            CategorieAdapter.OnClickCategorie {
     private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var categorieAdapter : CategorieAdapter? = null
     var plateAdapter : PlatesBigCardAdapter? = null
+    private var _binding : ActivityHomeBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance(): HomeFragment = HomeFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-            : View? = inflater.inflate(R.layout.activity_home, container, false)
+            : View {
+        _binding = ActivityHomeBinding.inflate(inflater, container, false)
+        return _binding!!.root
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,21 +53,21 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAda
         chargeCategories()
         chargePlates()
 
-        val btnSeeMore = activity!!.findViewById<TextView>(R.id.btnSeeMore)
+        val btnSeeMore = binding.btnSeeMore
         btnSeeMore.setOnClickListener { goToPlatesListActivity(1) }
     }
 
     //Intent a partir del click en una tarjeta del RecyclerView
-    override fun onClickPlate(plateId : Int){
+    override fun onClickPlate(plate : Int){
         val i = Intent(activity, PlateActivity::class.java)
-        i.putExtra(PlateActivity.PLATE_KEY, plateId)
+        i.putExtra(PlateActivity.PLATE_KEY, plate)
         startActivity(i)
     }
 
     //Intent a partir del click en una tarjeta del RecyclerView
-    override fun onClickCategorie(categorieId : Int){
+    override fun onClickCategorie(categorie : Int){
         val i = Intent(activity, PlatesListActivity::class.java)
-        i.putExtra(PlatesListActivity.QUERY_ID, categorieId)
+        i.putExtra(PlatesListActivity.QUERY_ID, categorie)
         startActivity(i)
     }
 
@@ -102,15 +113,15 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAda
 
     //Llamado a getPlates
     fun chargePlates(){
-        val rvPlatesBig = activity?.findViewById<RecyclerView>(R.id.rvPlatesBig)
-        val tvErrorMessage = activity?.findViewById<TextView>(R.id.tvErrorMessage)
+        val rvPlatesBig = binding.llPlates.rvPlatesBig
+        val tvErrorMessage = binding.tvErrorMessage
         getPlates(rvPlatesBig!!, tvErrorMessage!!)
     }
 
     //Bindear los datos del usuario
     fun bindUserData(){
         val user : User = sharedPrefManager.getUser(activity!!)!!
-        val tvToolbar = activity?.findViewById<TextView>(R.id.tvToolbar)
+        val tvToolbar = binding.tvToolbar
         tvToolbar!!.text = user.location
 
         val tvGreeting = activity?.findViewById<TextView>(R.id.tvGreeting)
@@ -120,7 +131,7 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate, CategorieAda
     //Traer lista de categorias y bindear con RecyclerView
     fun chargeCategories(){
         val categorieList = getCategories(activity!!)
-        val rvCategories = activity!!.findViewById<RecyclerView>(R.id.rvCategories)
+        val rvCategories = binding.llCategories.rvCategories
         categorieAdapter = CategorieAdapter(categorieList, this)
 
         rvCategories.adapter = categorieAdapter

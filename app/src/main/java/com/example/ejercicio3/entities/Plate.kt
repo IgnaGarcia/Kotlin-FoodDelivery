@@ -17,6 +17,5 @@ data class Plate(
         val sourceName: String?,
         val veryPopular: Boolean,
 
-        var isFavourite: Boolean = false,
         var hasFreeDelivery: Boolean = false,
 )

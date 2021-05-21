@@ -1,5 +1,7 @@
 package com.example.ejercicio3.entities
 
+import com.example.ejercicio3.network.responses.PlateResponse
+
 //Valores default para simular getUser() del login
 data class User(
         val username: String,
@@ -7,5 +9,14 @@ data class User(
         val name: String?= "Igna",
         val surname: String? = "Garcia",
         val email: String? = "gnachoxp@gmail.xom",
-        val location: String? = "Del Lazo 4476"
-)
+        val location: String? = "Del Lazo 4476",
+        val favourites : MutableList<Plate> = mutableListOf()
+){
+        fun addToFav(plate : Plate){
+                this.favourites.add(plate)
+        }
+
+        fun removeToFav(plate: Plate){
+                this.favourites.remove(plate)
+        }
+}

@@ -13,12 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio3.R
 import com.example.ejercicio3.adapters.PlatesCardAdapter
 import com.example.ejercicio3.adapters.ShopBoxAdapter
+import com.example.ejercicio3.databinding.ActivityShopboxBinding
+import com.example.ejercicio3.entities.Plate
 import com.example.ejercicio3.entities.User
 import com.example.ejercicio3.local.SharedPreferencesManager
 import com.example.ejercicio3.network.responses.PlateResponse
 
 class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
+    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var shopBoxAdapter : ShopBoxAdapter? = null
+    private var _binding : ActivityShopboxBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance(): ShopBoxFragment = ShopBoxFragment()
@@ -26,7 +31,15 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?
                               , savedInstanceState: Bundle?)
-            : View? = inflater.inflate(R.layout.activity_shopbox, container, false)
+            : View? {
+        _binding = ActivityShopboxBinding.inflate(inflater, container, false)
+        return _binding!!.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,6 +56,7 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
         startActivity(i)
     }
 
+
     fun setPlatesAdapter(rvPlatesCards : RecyclerView){
         shopBoxAdapter = ShopBoxAdapter(MainActivity.shopBox.plateList, this)
 
@@ -53,26 +67,26 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate {
     }
 
     fun chargePlates(){
-        val rvPlatesCards = activity!!.findViewById<RecyclerView>(R.id.rvPlatesCards)
+        val rvPlatesCards = binding.llPlateList.rvPlatesCards
         setPlatesAdapter(rvPlatesCards)
     }
 
     fun setAppBar(){
-        val toolbar = activity!!.findViewById<TextView>(R.id.tvToolbar)
+        val toolbar = binding.tvToolbar
         toolbar.text = this.getString(R.string.shopBag)
         toolbar.setTextColor(activity!!.getColorStateList(R.color.textPrimary))
     }
 
     fun setBottomText(){
-        val btnFinished = activity!!.findViewById<TextView>(R.id.btnFinish)
+        val btnFinished = binding.btnFinish
         btnFinished.text =
                 this.getString(R.string.buyFinished) + " $" + calcTotal(MainActivity.shopBox.plateList)
     }
 
-    fun calcTotal(plateList : MutableList<PlateResponse>) : Double{
+    fun calcTotal(plateList : MutableList<Plate>) : Double{
         var acc = 0.0
         for(plate in plateList){
-            acc = acc + plate.pricePerServing
+            acc += plate.pricePerServing
             println("precio total: $acc")
         }
         return acc

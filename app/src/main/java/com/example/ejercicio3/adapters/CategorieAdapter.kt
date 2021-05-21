@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio3.R
+import com.example.ejercicio3.databinding.ItemCategorieBinding
 import com.example.ejercicio3.entities.Categorie
 
 
@@ -14,8 +15,9 @@ class CategorieAdapter(var categories : List<Categorie>,
     : RecyclerView.Adapter<CategorieAdapter.BaseViewHolder>(){
 
     inner class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        val icCategorieIcon = view.findViewById<View>(R.id.icCategorieIcon)
-        val tvCategorieText = view.findViewById<TextView>(R.id.tvCategorieText)
+        val binding = ItemCategorieBinding.bind(view)
+        val icCategorieIcon = binding.icCategorieIcon
+        val tvCategorieText = binding.tvCategorieText
 
         fun onBind(categorie : Categorie){
             icCategorieIcon.background = categorie.icon

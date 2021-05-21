@@ -12,16 +12,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio3.R
 import com.example.ejercicio3.adapters.PlatesCardAdapter
+import com.example.ejercicio3.databinding.ActivitySearchBinding
 import com.example.ejercicio3.entities.Plate
+import com.example.ejercicio3.local.SharedPreferencesManager
 import com.example.ejercicio3.network.ApiClient
 import com.example.ejercicio3.network.responses.PlateListResponse
-import com.example.ejercicio3.network.responses.PlateResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate, SearchView.OnQueryTextListener {
+class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate
+    , SearchView.OnQueryTextListener {
+    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var plateCardAdapter : PlatesCardAdapter? = null
+    private var _binding : ActivitySearchBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance(): SearchFragment = SearchFragment()
@@ -29,14 +34,22 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate, SearchView.On
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?
                               , savedInstanceState: Bundle?)
-            : View? = inflater.inflate(R.layout.activity_search, container, false)
+            : View? {
+        _binding = ActivitySearchBinding.inflate(inflater, container, false)
+        return _binding!!.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setAppBar()
 
-        val inputSearch = activity!!.findViewById<SearchView>(R.id.inputSearch)
+        val inputSearch = binding.inputSearch
         inputSearch.setOnSearchClickListener{
             onQueryTextSubmit(inputSearch.query.toString())
         }
@@ -85,14 +98,14 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate, SearchView.On
     }
 
     fun setAppBar(){
-        val toolbar = activity!!.findViewById<TextView>(R.id.tvToolbar)
+        val toolbar = binding.tvToolbar
         toolbar.text = this.getString(R.string.search)
         toolbar.setTextColor(activity!!.getColorStateList(R.color.textPrimary))
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        val rvPlatesCards = activity!!.findViewById<RecyclerView>(R.id.rvPlatesCards)
-        val tvErrorMessage = activity!!.findViewById<TextView>(R.id.tvErrorMessage)
+        val rvPlatesCards = binding.llPlateList.rvPlatesCards
+        val tvErrorMessage = binding.tvErrorMessage
         if(query != null) getPlates(rvPlatesCards, tvErrorMessage, query)
         return false
     }
