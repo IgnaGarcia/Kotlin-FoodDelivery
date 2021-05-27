@@ -54,7 +54,7 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
         chargePlates()
 
         val btnSeeMore = binding.btnSeeMore
-        btnSeeMore.setOnClickListener { goToPlatesListActivity(1) }
+        btnSeeMore.setOnClickListener { goToPlatesListActivity(4) }
     }
 
     //Intent a partir del click en una tarjeta del RecyclerView

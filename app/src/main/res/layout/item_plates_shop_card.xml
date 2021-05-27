@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rounded"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/llImgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivPlatePhotoCard"
+                    android:layout_width="80dp"
+                    android:layout_height="86dp"
+                    tools:src="@drawable/plate_ph" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tvCountLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginTop="-16dp"
+                android:background="@drawable/shape_bordered"
+                android:elevation="1dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                tools:text="5 left"
+                android:textColor="@color/white"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7">
+
+            <LinearLayout
+                android:id="@+id/llTextPlateCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                app:layout_constraintRight_toLeftOf="@id/llFavourite"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvPlateNameCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textPrimary"
+                    android:textFontWeight="600"
+                    android:textSize="16sp"
+                    tools:text="Plato de prueba" />
+
+                <TextView
+                    android:id="@+id/tvPlatePriceCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingVertical="5dp"
+                    android:textColor="@color/textSecondary"
+                    android:textFontWeight="400"
+                    android:textSize="16sp"
+                    tools:text="$30.0" />
+
+                <LinearLayout
+                    android:id="@+id/llFreeDelivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/layerlist_free_delivey"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/freeDelivey"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llFavourite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:id="@+id/vBtnIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/layerlist_favourite"
+                    android:elevation="2dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llTextPlateCard"
+                android:layout_marginTop="3dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/btnRemove"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/shape_rounded"
+                    android:backgroundTint="@color/gray_400"
+                    android:text="-"
+                    android:elevation="2dp"
+                    android:textSize="28dp"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/tvCount"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="1"
+                    android:textSize="18dp"
+                    android:textColor="@color/textPrimary"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/btnAdd"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/shape_rounded"
+                    android:backgroundTint="@color/primaryBrand"
+                    android:text="+"
+                    android:textSize="28dp"
+                    android:textColor="@color/white"
+                    android:elevation="2dp"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -44,6 +44,7 @@ class ProfileFragment : Fragment() {
     fun goToStart(){
         val i = Intent(activity, StartActivity::class.java)
         sharedPrefManager.clearData(activity!!)
+        MainActivity.shopBox.clear()
         startActivity(i)
     }
 

@@ -16,7 +16,7 @@ import com.example.ejercicio3.local.SharedPreferencesManager
 import com.example.ejercicio3.network.responses.PlateResponse
 
 class ShopBoxAdapter(var plates : MutableList<Plate>,
-                     var onClickPlate : ShopBoxAdapter.OnClickPlate)
+                     var onClickPlate : OnClickPlate)
     : RecyclerView.Adapter<ShopBoxAdapter.BaseViewHolder>(){
 
     inner class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
@@ -38,7 +38,7 @@ class ShopBoxAdapter(var plates : MutableList<Plate>,
             tvPlateSINTACC.text = if(plate.glutenFree) itemView.context.getString(R.string.glutenFree) else ""
 
             vPlateFavourite.background =
-                if(user.favourites.contains(plate)) itemView.context.getDrawable(
+                if(user.plateIsFav(plate)) itemView.context.getDrawable(
                     R.drawable.layerlist_favourite_on)
                 else itemView.context.getDrawable(R.drawable.layerlist_favourite)
             llPopular.visibility = View.GONE
@@ -48,7 +48,7 @@ class ShopBoxAdapter(var plates : MutableList<Plate>,
             }
 
             vPlateFavourite.setOnClickListener{
-                if(user.favourites.contains(plate)) {
+                if(user.plateIsFav(plate)) {
                     user.removeToFav(plate)
                     vPlateFavourite.background =
                         itemView.context.getDrawable(R.drawable.layerlist_favourite)

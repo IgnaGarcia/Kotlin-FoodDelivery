@@ -1,6 +1,7 @@
 package com.example.ejercicio3.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.ejercicio3.R
@@ -24,26 +25,31 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.icHome -> {
                     val fragment = HomeFragment.newInstance()
+                    navBottom.visibility = View.VISIBLE
                     openFragment(fragment)
                     true
                 }
                 R.id.icProfile -> {
                     val fragment = ProfileFragment.newInstance()
+                    navBottom.visibility = View.VISIBLE
                     openFragment(fragment)
                     true
                 }
                 R.id.icBox -> {
                     val fragment = ShopBoxFragment.newInstance()
+                    navBottom.visibility = View.GONE
                     openFragment(fragment)
                     true
                 }
                 R.id.icSearch -> {
                     val fragment = SearchFragment.newInstance()
+                    navBottom.visibility = View.VISIBLE
                     openFragment(fragment)
                     true
                 }
                 else -> {
                     val fragment = HomeFragment.newInstance()
+                    navBottom.visibility = View.VISIBLE
                     openFragment(fragment)
                     true
                 }

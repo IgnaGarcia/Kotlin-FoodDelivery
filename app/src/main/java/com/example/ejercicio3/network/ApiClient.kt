@@ -58,5 +58,8 @@ object ApiClient{
 
         @GET("recipes/{plateId}/information?apiKey=$API_KEY")
         fun getPlateDetails(@Path("plateId") plateId : Int): Call<Plate>
+
+        @GET("$URL_COMPLEX?apiKey=$API_KEY&addRecipeInformation=true&number=10")
+        fun getPlatesByDiet(@Query("diet") diet : String) : Call<PlateListResponse>
     }
 }

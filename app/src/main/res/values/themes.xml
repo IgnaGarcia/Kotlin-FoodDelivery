@@ -9,6 +9,7 @@
         <item name="android:colorBackground">@color/backgroundColor</item>
 
         <item name="colorSurface">@color/white</item>
+            <item name="colorAccent">@color/primaryBrand</item>
 
         <item name="android:statusBarColor" tools:targetApi="l">@color/backgroundColor</item>
         <item name="android:windowLightStatusBar">true</item>

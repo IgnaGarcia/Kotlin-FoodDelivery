@@ -15,7 +15,15 @@
     <string name="login">Ingresar</string>
     <string name="singup">Registrarse</string>
     <string name="buy">Comprar</string>
+    <string name="checkout">Revisar Compra</string>
     <string name="buyFinished">Finalizar Compra</string>
+    <string name="freeDelivey">Delivery Gratis</string>
+    <string name="keepDistance">Mantener Distancia Social</string>
+    <string name="keepDistanceDescript">Dejamos el pedido en su puerta</string>
+    <string name="deliveryTo">Entrega en</string>
+    <string name="myCart">Mi pedido</string>
+    <string name="addItems">+ Agregar platos</string>
+    <string name="payment">Pago</string>
 
     <string name="home">Inicio</string>
     <string name="shopBag">Compra</string>

@@ -31,7 +31,7 @@ class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickP
         fun onBind(plate : Plate){
             Glide.with(ivPlatePhoto.context).load(plate.image).centerCrop().into(ivPlatePhoto)
             vPlateFavourite.background =
-                if(user.favourites.contains(plate)) itemView.context.getDrawable(
+                if(user.plateIsFav(plate)) itemView.context.getDrawable(
                     R.drawable.layerlist_favourite_on)
                 else itemView.context.getDrawable(R.drawable.layerlist_favourite)
             tvPlateName.text = plate.title
@@ -46,7 +46,7 @@ class PlatesBigCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickP
             }
 
             vPlateFavourite.setOnClickListener{
-                if(user.favourites.contains(plate)) {
+                if(user.plateIsFav(plate)) {
                     user.removeToFav(plate)
                     vPlateFavourite.background =
                         itemView.context.getDrawable(R.drawable.layerlist_favourite)

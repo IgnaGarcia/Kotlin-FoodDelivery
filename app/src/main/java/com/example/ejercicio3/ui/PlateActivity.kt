@@ -3,8 +3,6 @@ package com.example.ejercicio3.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -15,7 +13,6 @@ import com.example.ejercicio3.entities.User
 import com.example.ejercicio3.local.SharedPreferencesManager
 import com.example.ejercicio3.network.ApiClient
 import com.example.ejercicio3.network.responses.ExtendedIngredient
-import com.example.ejercicio3.network.responses.PlateResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +20,7 @@ import retrofit2.Response
 class PlateActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPlateBinding
     private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
-    val user : User = sharedPrefManager.getUser(this)!!
+    var user : User? = null
     companion object{
         const val PLATE_KEY = "platekey"
     }
@@ -33,6 +30,7 @@ class PlateActivity : AppCompatActivity() {
         binding = ActivityPlateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        user = sharedPrefManager.getUser(this)!!
         val tvErrorMessage = binding.tvErrorMessage
         val plate = intent.extras!!.getInt(PLATE_KEY)
         getPlateDetails(tvErrorMessage, plate)
@@ -78,15 +76,12 @@ class PlateActivity : AppCompatActivity() {
 
         val btnBuy = binding.btnBuy
         btnBuy.setOnClickListener {
-            MainActivity.shopBox.plateList.add(plate)
-
-            val i = Intent(this@PlateActivity, MainActivity::class.java)
-            i.putExtra(MainActivity.SHOP_KEY, R.id.icBox)
-            startActivity(i)
+            MainActivity.shopBox.addPlate(plate)
+            goToShopBox()
         }
 
         vPlateFavouriteCard.background =
-            if(user.favourites.contains(plate)) this.getDrawable(
+            if(user!!.plateIsFav(plate)) this.getDrawable(
                 R.drawable.layerlist_favourite_on)
             else this.getDrawable(R.drawable.layerlist_favourite)
 
@@ -95,16 +90,22 @@ class PlateActivity : AppCompatActivity() {
         }
     }
 
+    fun goToShopBox(){
+        val i = Intent(this@PlateActivity, MainActivity::class.java)
+        startActivity(i)
+    }
+
     fun onClickFavPlate(view : View, plate : Plate){
-        if(user.favourites.contains(plate)) {
-            user.removeToFav(plate)
+        if(user!!.plateIsFav(plate)) {
+            user!!.removeToFav(plate)
             view.background =
                 this.getDrawable(R.drawable.layerlist_favourite)
         }
         else {
-            user.addToFav(plate)
+            user!!.addToFav(plate)
             view.background = this.getDrawable(R.drawable.layerlist_favourite_on)
         }
+        sharedPrefManager.saveUser(this, user!!)
     }
 
     //Convertir la lista de ingredientes en un string

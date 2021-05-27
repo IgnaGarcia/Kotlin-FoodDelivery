@@ -12,11 +12,17 @@ data class User(
         val location: String? = "Del Lazo 4476",
         val favourites : MutableList<Plate> = mutableListOf()
 ){
-        fun addToFav(plate : Plate){
-                this.favourites.add(plate)
-        }
+        fun addToFav(plate : Plate) = favourites.add(plate)
 
-        fun removeToFav(plate: Plate){
-                this.favourites.remove(plate)
+        fun removeToFav(plate: Plate) = favourites.remove(plate)
+
+        fun plateIsFav(plate : Plate) : Boolean{
+                var res = false
+                favourites.forEach {
+                        if(plate.id == it.id){
+                                res = true
+                        }
+                }
+                return res
         }
 }
