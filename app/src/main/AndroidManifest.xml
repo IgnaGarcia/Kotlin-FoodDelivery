@@ -27,7 +27,8 @@
         <activity android:name=".ui.LoginActivity"
             android:parentActivityName=".ui.StartActivity"/>
         
-        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.MainActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.PlatesListActivity"
             android:parentActivityName=".ui.MainActivity"/>
         <activity android:name=".ui.PlateActivity"
