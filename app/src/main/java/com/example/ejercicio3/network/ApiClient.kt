@@ -14,8 +14,8 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 object ApiClient{
-    private const val API_KEY = "c34167616f834599a1ccf9a86f2397fd"
-    //private const val API_KEY = "fd926ca241f8421da10f7370f3cf73a4"
+    //private const val API_KEY = "c34167616f834599a1ccf9a86f2397fd"
+    private const val API_KEY = "fd926ca241f8421da10f7370f3cf73a4"
     //private const val API_KEY = "1e2e85c08c95409fa3c5b99e7c671346"
 
     private const val API_BASE_URL = "https://api.spoonacular.com/"

@@ -19,7 +19,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarHome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?actionBarSize"
             android:padding="15dp"
             android:background="@color/white"
             android:paddingHorizontal="18dp"
@@ -31,8 +31,9 @@
                 android:layout_height="wrap_content"
                 android:textFontWeight="700"
                 android:layout_marginLeft="5dp"
+                tools:text="AAAAAAAa"
                 android:titleTextColor="@color/textPrimary"
-                android:textSize="26sp" />
+                android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
