@@ -52,10 +52,13 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate, ShopBox.OnCount
         setBottomText()
         getPlateDetails(binding.tvErrorMessage, 652417)
         setUpTabs()
+        setAppBar()
+    }
 
-        binding.clReturnBtn.setOnClickListener{
-            val i = Intent(activity, MainActivity::class.java)
-            startActivity(i)
+    fun setAppBar(){
+        binding.tvToolbar.text = activity!!.getString(R.string.myCart)
+        binding.vBackBtn.setOnClickListener{
+            startActivity(Intent(activity!!, MainActivity::class.java))
         }
     }
 
@@ -109,6 +112,7 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate, ShopBox.OnCount
         val tvRestoStars = binding.tvRestoStars
         val llRestoVerified = binding.llRestoVerified
         val vPlateFavouriteCard = binding.vPlateFavouriteCard
+        vPlateFavouriteCard.visibility = View.VISIBLE
 
         ivPlatePhotoDetail.visibility = View.VISIBLE
         Glide.with(ivPlatePhotoDetail.context).load(plate.image).into(ivPlatePhotoDetail)

@@ -7,6 +7,65 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/lyTooblar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarHome"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:padding="15dp"
+            android:background="@color/white"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="12dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/vBackBtn"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/ic_back_arrow"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvToolbar"
+                    app:layout_constraintBottom_toBottomOf="@id/tvToolbar"/>
+
+                <TextView
+                    android:id="@+id/tvToolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textFontWeight="700"
+                    android:layout_marginLeft="5dp"
+                    android:titleTextColor="@color/textPrimary"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toRightOf="@id/vBackBtn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <View
+                    android:id="@+id/vPlateFavouriteCard"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="2dp"
+                    android:background="@drawable/layerlist_favourite"
+                    android:layout_marginRight="5dp"
+                    android:elevation="2dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvToolbar"
+                    app:layout_constraintBottom_toBottomOf="@id/tvToolbar"
+                    android:visibility="gone"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
@@ -35,64 +94,23 @@
         android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lyTooblar"
         tools:src="@drawable/plate_ph"
         android:visibility="gone"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clTopButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:padding="20dp"
-        app:layout_constraintRight_toRightOf="@id/ivPlatePhotoDetail"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clReturnBtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/shape_circle"
-            android:backgroundTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <View
-                android:id="@+id/vReturn"
-                android:layout_width="30dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/ic_back_arrow"
-                android:elevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/vPlateFavouriteCard"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/layerlist_favourite"
-            android:elevation="2dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/clPlateInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="170dp"
         android:background="@drawable/shape_rounded"
         android:orientation="vertical"
         android:paddingHorizontal="40dp"
         android:paddingVertical="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clTopButtons">
+        app:layout_constraintTop_toBottomOf="@id/lyTooblar">
 
         <TextView
             android:id="@+id/tvRestoTitle"
