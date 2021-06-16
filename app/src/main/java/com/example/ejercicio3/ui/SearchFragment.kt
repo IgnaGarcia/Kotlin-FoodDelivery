@@ -74,7 +74,7 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate
 
     //Traer los datos de la API
     private fun getPlates(queryString : String){
-        val rvPlatesCards = binding.llPlateList.rvPlatesCards
+        val rvPlatesCards = binding.rvPlatesCards
         val progressBar = binding.progressBar
         val tvError = binding.tvError
 

@@ -66,7 +66,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
     //Traer los datos de la API
     private fun getPlates(queryId : Int, offset : Int){
         val progressBar = binding.progressBar
-        val rvPlatesCards = binding.llPlateList.rvPlatesCards
+        val rvPlatesCards = binding.rvPlatesCards
         val tvError = binding.tvError
 
         ApiClient.getServiceClient().getPlates(20, offset)
@@ -122,7 +122,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
                 binding.tvError.visibility = View.VISIBLE
             } else {
                 binding.progressBar.visibility = View.GONE
-                setPlatesAdapter(binding.llPlateList.rvPlatesCards, 1, 0)
+                setPlatesAdapter(binding.rvPlatesCards, 1, 0)
             }
         } else {
             getPlates(queryId, 0)

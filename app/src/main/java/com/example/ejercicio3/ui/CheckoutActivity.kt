@@ -36,7 +36,7 @@ class CheckoutActivity : AppCompatActivity(), PlatesShopCardAdapter.OnClickPlate
     }
 
     fun setPlatesAdapter(plates : List<Plate>){
-        val rvPlatesCards = binding.llPlateList.rvPlatesShopCards
+        val rvPlatesShopCards = binding.rvPlatesShopCards
         val progressBar = binding.progressBar
         val tvError = binding.tvError
 
@@ -47,12 +47,12 @@ class CheckoutActivity : AppCompatActivity(), PlatesShopCardAdapter.OnClickPlate
         } else {
             platesShopCardAdapter = PlatesShopCardAdapter(plates, this, 2)
 
-            rvPlatesCards.adapter = platesShopCardAdapter
-            rvPlatesCards.layoutManager = LinearLayoutManager(
+            rvPlatesShopCards.adapter = platesShopCardAdapter
+            rvPlatesShopCards.layoutManager = LinearLayoutManager(
                 this, LinearLayoutManager.VERTICAL, false)
 
             progressBar.visibility = View.GONE
-            rvPlatesCards.visibility = View.VISIBLE
+            rvPlatesShopCards.visibility = View.VISIBLE
         }
     }
 

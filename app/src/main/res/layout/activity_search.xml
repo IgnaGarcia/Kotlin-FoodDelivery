@@ -76,11 +76,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:fillViewport="true"
         app:layout_constraintRight_toRightOf="parent">
-        <include
-            android:id="@+id/llPlateList"
-            layout="@layout/recycler_plates_card"
-            android:layout_height="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPlatesCards"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
             android:visibility="gone"/>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

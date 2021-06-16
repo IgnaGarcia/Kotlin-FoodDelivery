@@ -92,7 +92,7 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
     private fun getPlates(){
         val progressBar = binding.progressBar
         val tvError = binding.tvError
-        val rvPlatesBig = binding.llPlates.rvPlatesBig
+        val rvPlatesBig = binding.rvPlatesBig
 
         ApiClient.getServiceClient().getPlates(5, 0)
             .enqueue(object: Callback<PlateListResponse> {
@@ -136,7 +136,7 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
     //Traer lista de categorias y bindear con RecyclerView
     fun chargeCategories(){
         val categorieList = getCategories(activity!!)
-        val rvCategories = binding.llCategories.rvCategories
+        val rvCategories = binding.rvCategories
         categorieAdapter = CategorieAdapter(categorieList, this)
 
         rvCategories.adapter = categorieAdapter

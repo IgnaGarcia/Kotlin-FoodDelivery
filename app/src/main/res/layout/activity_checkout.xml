@@ -140,11 +140,12 @@
                         android:gravity="right|center"/>
                 </LinearLayout>
 
-                <include
-                    android:id="@+id/llPlateList"
-                    layout="@layout/recycler_plates_shop_card"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPlatesShopCards"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"/>
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_plates_shop_card"/>
 
                 <TextView
                     android:id="@+id/tvError"

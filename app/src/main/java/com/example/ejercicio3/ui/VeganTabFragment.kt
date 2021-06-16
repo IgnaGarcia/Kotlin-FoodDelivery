@@ -52,7 +52,7 @@ class VeganTabFragment : Fragment(), PlatesShopCardAdapter.OnClickPlate {
 
     //Traer los datos de la API
     private fun getPlatesByDiet(){
-        val rvPlatesCards = binding.llPlateList.rvPlatesShopCards
+        val rvPlatesCards = binding.rvPlatesShopCards
         val progressBar = binding.progressBar
         val tvError = binding.tvFragError
 
