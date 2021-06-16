@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ejercicio3.R
 import com.example.ejercicio3.adapters.PlatesShopCardAdapter
 import com.example.ejercicio3.databinding.FragmentTabLayoutBinding
 import com.example.ejercicio3.entities.Plate
@@ -38,13 +39,7 @@ class CetoTabFragment : Fragment(), PlatesShopCardAdapter.OnClickPlate {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        chargePlates()
-    }
-
-    fun chargePlates(){
-        val rvPlatesCards = binding.llPlateList.rvPlatesShopCards
-        val tvFragErrorMessage = binding.tvFragErrorMessage
-        getPlatesByDiet(rvPlatesCards, tvFragErrorMessage)
+        getPlatesByDiet()
     }
 
     //Pasarle al RecyclerView los datos
@@ -57,24 +52,36 @@ class CetoTabFragment : Fragment(), PlatesShopCardAdapter.OnClickPlate {
     }
 
     //Traer los datos de la API
-    private fun getPlatesByDiet(rvPlatesCards : RecyclerView, tvFragErrorMessage : TextView){
+    private fun getPlatesByDiet(){
+        val rvPlatesCards = binding.llPlateList.rvPlatesShopCards
+        val progressBar = binding.progressBar
+        val tvError = binding.tvFragError
+
         ApiClient.getServiceClient().getPlatesByDiet("ketogenic")
             .enqueue(object: Callback<PlateListResponse> {
                 override fun onResponse(call: Call<PlateListResponse>,
                                         response: Response<PlateListResponse>
                 ) {
                     if(response.isSuccessful){
-                        rvPlatesCards.visibility = View.VISIBLE
-                        tvFragErrorMessage.visibility = View.GONE
                         response.body()?.let{
-                            setPlatesAdapter(rvPlatesCards, it.results)
+                            if(it.results.isEmpty()){
+                                progressBar.visibility = View.GONE
+                                tvError.text = activity!!.getString(R.string.e404)
+                                tvError.visibility = View.VISIBLE
+                            }
+                            else{
+                                progressBar.visibility = View.GONE
+                                rvPlatesCards.visibility = View.VISIBLE
+                                setPlatesAdapter(rvPlatesCards, it.results)
+                            }
                         }
                     }
                 }
                 override fun onFailure(call: Call<PlateListResponse>, t: Throwable) {
                     t.printStackTrace()
-                    rvPlatesCards.visibility = View.GONE
-                    tvFragErrorMessage.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                    tvError.text = activity!!.getString(R.string.e500)
+                    tvError.visibility = View.VISIBLE
                 }
             })
     }

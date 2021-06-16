@@ -73,26 +73,36 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate
     }
 
     //Traer los datos de la API
-    private fun getPlates(rvPlatesCards : RecyclerView, tvErrorMessage : TextView, queryString : String){
+    private fun getPlates(queryString : String){
+        val rvPlatesCards = binding.llPlateList.rvPlatesCards
+        val progressBar = binding.progressBar
+        val tvError = binding.tvError
+
         ApiClient.getServiceClient().getPlates(queryString)
                 .enqueue(object: Callback<PlateListResponse> {
                     override fun onResponse(call: Call<PlateListResponse>,
                                             response: Response<PlateListResponse>) {
                         if(response.isSuccessful){
-                            rvPlatesCards.visibility = View.VISIBLE
-                            tvErrorMessage.visibility = View.GONE
                             response.body()?.let{
-                                setPlatesAdapter(rvPlatesCards, it.results)
+                                if(it.results.isEmpty()){
+                                    progressBar.visibility = View.GONE
+                                    tvError.text = activity!!.getString(R.string.e404)
+                                    tvError.visibility = View.VISIBLE
+                                }
+                                else{
+                                    progressBar.visibility = View.GONE
+                                    rvPlatesCards.visibility = View.VISIBLE
+                                    setPlatesAdapter(rvPlatesCards, it.results)
+                                }
                             }
                         }
                     }
 
                     override fun onFailure(call: Call<PlateListResponse>, t: Throwable) {
                         t.printStackTrace()
-
-                        rvPlatesCards.visibility = View.GONE
-                        tvErrorMessage.visibility = View.VISIBLE
-                        tvErrorMessage.text = activity!!.getString(R.string.error)
+                        progressBar.visibility = View.GONE
+                        tvError.text = activity!!.getString(R.string.e500)
+                        tvError.visibility = View.VISIBLE
                     }
                 })
     }
@@ -104,9 +114,7 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        val rvPlatesCards = binding.llPlateList.rvPlatesCards
-        val tvErrorMessage = binding.tvErrorMessage
-        if(query != null) getPlates(rvPlatesCards, tvErrorMessage, query)
+        if(query != null) getPlates(query)
         return false
     }
 

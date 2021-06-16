@@ -68,11 +68,13 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate, ShopBox.OnCount
 
     //Traer datos de la API
     private fun getPlateDetails(tvErr : TextView, plate : Int){
+        val progressBar = binding.progressBar
+
         ApiClient.getServiceClient().getPlateDetails(plate)
             .enqueue(object: Callback<Plate> {
                 override fun onFailure(call : Call<Plate>, t: Throwable){
-                    //log
                     t.printStackTrace()
+                    progressBar.visibility = View.GONE
                     tvErr.visibility = View.VISIBLE
                 }
 
@@ -80,7 +82,7 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate, ShopBox.OnCount
                                         response : Response<Plate>){
                     if(response.isSuccessful){
                         response.body()?.let{
-                            tvErr.visibility= View.GONE
+                            progressBar.visibility = View.GONE
                             setHeader(it)
                         }
                     }
@@ -108,6 +110,7 @@ class ShopBoxFragment : Fragment(), ShopBoxAdapter.OnClickPlate, ShopBox.OnCount
         val llRestoVerified = binding.llRestoVerified
         val vPlateFavouriteCard = binding.vPlateFavouriteCard
 
+        ivPlatePhotoDetail.visibility = View.VISIBLE
         Glide.with(ivPlatePhotoDetail.context).load(plate.image).into(ivPlatePhotoDetail)
 
         tvRestoTitle.text = plate.title

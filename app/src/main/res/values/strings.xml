@@ -39,5 +39,7 @@
     <string name="email">Email</string>
     <string name="aceptTerms">Estoy de acuerdo con los Términos y Condiciones</string>
 
-    <string name="error">Error al conectarse al servidor</string>
+    <!-- Errors -->
+    <string name="e500">Error al conectarse al servidor</string>
+    <string name="e404">No se encontraron elementos</string>
 </resources>

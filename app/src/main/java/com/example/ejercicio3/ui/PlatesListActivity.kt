@@ -3,7 +3,6 @@ package com.example.ejercicio3.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +49,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
     }
 
     //Pasarle al RecyclerView los datos
-    fun setPlatesAdapter(rvPlatesCards : RecyclerView, tvErrorMessage : TextView, queryId : Int, offset : Int){
+    fun setPlatesAdapter(rvPlatesCards : RecyclerView, queryId : Int, offset : Int){
         if(plates.size >= 5 || queryId == 1){
             plateCardAdapter = PlatesCardAdapter(plates, this)
 
@@ -60,56 +59,73 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
         }
        else {
             val offst = offset + 20
-            getPlates(rvPlatesCards, tvErrorMessage,  queryId, offst)
+            getPlates(queryId, offst)
         }
     }
 
     //Traer los datos de la API
-    private fun getPlates(rvPlatesCards : RecyclerView, tvErrorMessage : TextView, queryId : Int, offset : Int){
+    private fun getPlates(queryId : Int, offset : Int){
+        val progressBar = binding.progressBar
+        val rvPlatesCards = binding.llPlateList.rvPlatesCards
+        val tvError = binding.tvError
+
         ApiClient.getServiceClient().getPlates(20, offset)
                 .enqueue(object: Callback<PlateListResponse> {
                     override fun onResponse(call: Call<PlateListResponse>,
                                             response: Response<PlateListResponse>) {
                         if(response.isSuccessful){
-                            rvPlatesCards.visibility = View.VISIBLE
-                            tvErrorMessage.visibility = View.GONE
                             response.body()?.let{
-                                plates = plates.plus(it.results)
-                                when(queryId){
-                                    2 -> {
-                                        plates = plates.filter { s -> s.pricePerServing < 80 }
-                                        setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
-                                    }
-                                    3 -> {
-                                        plates = plates.filter { s -> s.veryPopular }
-                                        setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
-                                    }
-                                    else -> setPlatesAdapter(rvPlatesCards, tvErrorMessage, queryId, offset)
+                                if(it.results.isEmpty()){
+                                    progressBar.visibility = View.GONE
+                                    tvError.text = getString(R.string.e404)
+                                    tvError.visibility = View.VISIBLE
                                 }
+                                else{
+                                    plates = plates.plus(it.results)
+                                    when(queryId){
+                                        2 -> {
+                                            plates = plates.filter { s -> s.pricePerServing < 80 }
+                                            setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                        }
+                                        3 -> {
+                                            plates = plates.filter { s -> s.veryPopular }
+                                            setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                        }
+                                        else -> setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                    }
 
+                                    progressBar.visibility = View.GONE
+                                    rvPlatesCards.visibility = View.VISIBLE
+                                    setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                }
                             }
                         }
                     }
 
                     override fun onFailure(call: Call<PlateListResponse>, t: Throwable) {
                         t.printStackTrace()
-
-                        rvPlatesCards.visibility = View.GONE
-                        tvErrorMessage.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
+                        tvError.text = getString(R.string.e500)
+                        tvError.visibility = View.VISIBLE
                     }
                 })
     }
 
     //Llamado a getMorePlates
     fun chargePlates(queryId : Int){
-        val rvPlatesCards = binding.llPlateList.rvPlatesCards
-        val tvErrorMessage = binding.tvErrorMessage
         if (queryId == 1) {
             val user : User = sharedPrefManager.getUser(this)!!
             plates = user.favourites
-            setPlatesAdapter(rvPlatesCards, tvErrorMessage, 1, 0)
+            if(plates.isEmpty()){
+                binding.tvError.text = getString(R.string.e404)
+                binding.progressBar.visibility = View.GONE
+                binding.tvError.visibility = View.VISIBLE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                setPlatesAdapter(binding.llPlateList.rvPlatesCards, 1, 0)
+            }
         } else {
-            getPlates(rvPlatesCards, tvErrorMessage, queryId, 0)
+            getPlates(queryId, 0)
         }
 
     }

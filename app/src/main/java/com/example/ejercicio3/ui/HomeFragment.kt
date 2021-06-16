@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio3.R
 import com.example.ejercicio3.adapters.CategorieAdapter
 import com.example.ejercicio3.adapters.PlatesBigCardAdapter
+import com.example.ejercicio3.adapters.PlatesShopCardAdapter
 import com.example.ejercicio3.databinding.ActivityHomeBinding
 import com.example.ejercicio3.entities.Plate
 import com.example.ejercicio3.entities.User
@@ -51,7 +52,7 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
 
         bindUserData()
         chargeCategories()
-        chargePlates()
+        getPlates()
 
         val btnSeeMore = binding.btnSeeMore
         btnSeeMore.setOnClickListener { goToPlatesListActivity(4) }
@@ -88,16 +89,26 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
     }
 
     //Traer los datos de la API
-    private fun getPlates(rvPlatesBig : RecyclerView, tvErrorMessage : TextView){
+    private fun getPlates(){
+        val progressBar = binding.progressBar
+        val tvError = binding.tvError
+        val rvPlatesBig = binding.llPlates.rvPlatesBig
+
         ApiClient.getServiceClient().getPlates(5, 0)
             .enqueue(object: Callback<PlateListResponse> {
                 override fun onResponse(call : Call<PlateListResponse>,
                                         response : Response<PlateListResponse>) {
                     if(response.isSuccessful){
-                        rvPlatesBig.visibility = View.VISIBLE
-                        tvErrorMessage.visibility = View.GONE
                         response.body()?.let{
-                            setPlatesAdapter(rvPlatesBig, it.results)
+                            if(it.results.isEmpty()){
+                                tvError.text = getString(R.string.e404)
+                                progressBar.visibility = View.GONE
+                                tvError.visibility = View.VISIBLE
+                            } else {
+                                progressBar.visibility = View.GONE
+                                rvPlatesBig.visibility = View.VISIBLE
+                                setPlatesAdapter(rvPlatesBig, it.results)
+                            }
                         }
                     }
                 }
@@ -105,17 +116,11 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
                 override fun onFailure(call: Call<PlateListResponse>, t: Throwable) {
                     t.printStackTrace()
 
-                    rvPlatesBig.visibility = View.GONE
-                    tvErrorMessage.visibility = View.VISIBLE
+                    tvError.text = getString(R.string.e500)
+                    progressBar.visibility = View.GONE
+                    tvError.visibility = View.VISIBLE
                 }
             })
-    }
-
-    //Llamado a getPlates
-    fun chargePlates(){
-        val rvPlatesBig = binding.llPlates.rvPlatesBig
-        val tvErrorMessage = binding.tvErrorMessage
-        getPlates(rvPlatesBig!!, tvErrorMessage!!)
     }
 
     //Bindear los datos del usuario

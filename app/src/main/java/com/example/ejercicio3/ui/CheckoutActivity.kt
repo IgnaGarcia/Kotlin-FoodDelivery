@@ -2,6 +2,7 @@ package com.example.ejercicio3.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,7 @@ class CheckoutActivity : AppCompatActivity(), PlatesShopCardAdapter.OnClickPlate
 
         binding.btnAddPlates.setOnClickListener{ goToPlateList() }
         setAppBar()
-        setPlatesAdapter(binding.llPlateList.rvPlatesShopCards, MainActivity.shopBox.plateList)
+        setPlatesAdapter(MainActivity.shopBox.plateList)
         setBottomText()
     }
 
@@ -34,12 +35,25 @@ class CheckoutActivity : AppCompatActivity(), PlatesShopCardAdapter.OnClickPlate
         startActivity(i)
     }
 
-    fun setPlatesAdapter(rvPlatesCards : RecyclerView, plates : List<Plate>){
-        platesShopCardAdapter = PlatesShopCardAdapter(plates, this, 2)
+    fun setPlatesAdapter(plates : List<Plate>){
+        val rvPlatesCards = binding.llPlateList.rvPlatesShopCards
+        val progressBar = binding.progressBar
+        val tvError = binding.tvError
 
-        rvPlatesCards.adapter = platesShopCardAdapter
-        rvPlatesCards.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.VERTICAL, false)
+        if(plates.isEmpty()){
+            tvError.text = getString(R.string.e404)
+            progressBar.visibility = View.GONE
+            tvError.visibility = View.VISIBLE
+        } else {
+            platesShopCardAdapter = PlatesShopCardAdapter(plates, this, 2)
+
+            rvPlatesCards.adapter = platesShopCardAdapter
+            rvPlatesCards.layoutManager = LinearLayoutManager(
+                this, LinearLayoutManager.VERTICAL, false)
+
+            progressBar.visibility = View.GONE
+            rvPlatesCards.visibility = View.VISIBLE
+        }
     }
 
     override fun onClickPlate(plate: Int) {
@@ -49,14 +63,10 @@ class CheckoutActivity : AppCompatActivity(), PlatesShopCardAdapter.OnClickPlate
     }
 
     override fun onCountChange(){
-        val tvItemTotalPrice = binding.tvItemTotalPrice
-        val tvTotalPrice = binding.tvTotalPrice
-        val tvFinalPrice = binding.tvFinalPrice
-
         val total = MainActivity.shopBox.calcTotal()
-        tvItemTotalPrice.text = String.format("$%.2f", total)
-        tvTotalPrice.text = String.format("$%.2f", total)
-        tvFinalPrice.text = String.format("$%.2f", total)
+        binding.tvItemTotalPrice.text = String.format("$%.2f", total)
+        binding.tvTotalPrice.text = String.format("$%.2f", total)
+        binding.tvFinalPrice.text = String.format("$%.2f", total)
     }
 
     fun setAppBar(){
