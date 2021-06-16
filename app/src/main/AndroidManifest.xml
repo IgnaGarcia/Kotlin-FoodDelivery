@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ejercicio3">
         
-        <activity android:name=".ui.SplashActivity"
+        <activity android:name=".ui.start.splash.SplashActivity"
             android:theme="@style/ThemeSplash"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
@@ -21,33 +21,33 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.StartActivity"
+        <activity android:name=".ui.start.StartActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
         
-        <activity android:name=".ui.SingupActivity"
-            android:parentActivityName=".ui.StartActivity"
+        <activity android:name=".ui.start.signup.SignupActivity"
+            android:parentActivityName=".ui.start.StartActivity"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LoginActivity"
-            android:parentActivityName=".ui.StartActivity"/>
+        <activity android:name="com.example.ejercicio3.ui.start.login.LoginActivity"
+            android:parentActivityName=".ui.start.StartActivity"/>
         
-        <activity android:name=".ui.MainActivity"
+        <activity android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.PlatesListActivity"
-            android:parentActivityName=".ui.MainActivity"
+        <activity android:name=".ui.main.plateList.PlatesListActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.PlateActivity"
-            android:parentActivityName=".ui.PlatesListActivity"
+        <activity android:name=".ui.main.plate.PlateActivity"
+            android:parentActivityName=".ui.main.plateList.PlatesListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.CheckoutActivity"
-            android:parentActivityName=".ui.MainActivity"
+        <activity android:name=".ui.main.checkout.CheckoutActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
 
