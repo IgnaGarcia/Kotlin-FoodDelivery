@@ -12,30 +12,44 @@
         android:theme="@style/Theme.Ejercicio3">
         
         <activity android:name=".ui.SplashActivity"
-            android:theme="@style/ThemeSplash">
+            android:theme="@style/ThemeSplash"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.StartActivity"/>
+        <activity android:name=".ui.StartActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         
         <activity android:name=".ui.SingupActivity"
             android:parentActivityName=".ui.StartActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.LoginActivity"
             android:parentActivityName=".ui.StartActivity"/>
         
         <activity android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.PlatesListActivity"
-            android:parentActivityName=".ui.MainActivity"/>
+            android:parentActivityName=".ui.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.PlateActivity"
-            android:parentActivityName=".ui.PlatesListActivity"/>
+            android:parentActivityName=".ui.PlatesListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.CheckoutActivity"
-            android:parentActivityName=".ui.MainActivity"/>
+            android:parentActivityName=".ui.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"
