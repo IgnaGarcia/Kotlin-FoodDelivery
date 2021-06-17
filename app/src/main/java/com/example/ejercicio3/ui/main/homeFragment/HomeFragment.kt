@@ -2,28 +2,30 @@ package com.example.ejercicio3.ui.main.homeFragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ejercicio3.R
-import com.example.ejercicio3.databinding.ActivityHomeBinding
 import com.example.ejercicio3.data.entities.Plate
 import com.example.ejercicio3.data.entities.User
 import com.example.ejercicio3.data.entities.getCategories
 import com.example.ejercicio3.data.local.SharedPreferencesManager
 import com.example.ejercicio3.data.network.ApiClient
 import com.example.ejercicio3.data.network.responses.PlateListResponse
-import com.example.ejercicio3.ui.main.MainActivity
+import com.example.ejercicio3.databinding.ActivityHomeBinding
 import com.example.ejercicio3.ui.main.plate.PlateActivity
 import com.example.ejercicio3.ui.main.plateList.PlatesListActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
             CategorieAdapter.OnClickCategorie {
@@ -49,6 +51,7 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         bindUserData()
         chargeCategories()
         getPlates()
@@ -131,7 +134,12 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
     //Bindear los datos del usuario
     fun bindUserData(){
         val user : User = SharedPreferencesManager.getUser(activity!!)!!
-        binding.tvToolbar.text = user.location
+
+        val spinner = binding.spinner
+        val items = arrayOf(user.location, user.location+"2", user.location+"3")
+        val adapter = ArrayAdapter(activity!!, android.R.layout.simple_spinner_dropdown_item, items);
+        spinner.adapter = adapter;
+
         binding.tvGreeting.text = "Hola, ${user.username}"
     }
 
