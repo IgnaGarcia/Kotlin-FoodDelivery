@@ -74,29 +74,37 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
                     override fun onResponse(call: Call<PlateListResponse>,
                                             response: Response<PlateListResponse>) {
                         if(response.isSuccessful){
-                            response.body()?.let{
-                                if(it.results.isEmpty()){
-                                    progressBar.visibility = View.GONE
-                                    tvError.text = getString(R.string.e404)
-                                    tvError.visibility = View.VISIBLE
-                                }
-                                else{
-                                    plates = plates.plus(it.results)
-                                    when(queryId){
-                                        2 -> {
-                                            plates = plates.filter { s -> s.pricePerServing < 80 }
-                                            setPlatesAdapter(rvPlatesCards, queryId, offset)
-                                        }
-                                        3 -> {
-                                            plates = plates.filter { s -> s.veryPopular }
-                                            setPlatesAdapter(rvPlatesCards, queryId, offset)
-                                        }
-                                        else -> setPlatesAdapter(rvPlatesCards, queryId, offset)
+                            if(response.code() != 200){
+                                tvError.text = getString(R.string.e500)
+                                progressBar.visibility = View.GONE
+                                tvError.visibility = View.VISIBLE
+                            }
+                            else {
+                                response.body()?.let{
+                                    if(it.results.isEmpty()){
+                                        progressBar.visibility = View.GONE
+                                        tvError.text = getString(R.string.e404)
+                                        tvError.visibility = View.VISIBLE
                                     }
+                                    else{
+                                        plates = plates.plus(it.results)
+                                        when(queryId){
+                                            2 -> {
+                                                plates = plates.filter {
+                                                        s -> s.pricePerServing < 80 }
+                                                setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                            }
+                                            3 -> {
+                                                plates = plates.filter { s -> s.veryPopular }
+                                                setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                            }
+                                            else -> setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                        }
 
-                                    progressBar.visibility = View.GONE
-                                    rvPlatesCards.visibility = View.VISIBLE
-                                    setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                        progressBar.visibility = View.GONE
+                                        rvPlatesCards.visibility = View.VISIBLE
+                                        setPlatesAdapter(rvPlatesCards, queryId, offset)
+                                    }
                                 }
                             }
                         }

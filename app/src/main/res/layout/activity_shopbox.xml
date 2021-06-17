@@ -78,12 +78,13 @@
 
     <TextView
         android:id="@+id/tvErrorMessage"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/e500"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lyTooblar"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="50dp"
         app:layout_constraintBottom_toTopOf="@id/clPlateInfo"
         android:visibility="gone"/>
 

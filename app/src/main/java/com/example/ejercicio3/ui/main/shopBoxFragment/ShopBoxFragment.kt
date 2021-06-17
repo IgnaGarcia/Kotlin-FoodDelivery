@@ -80,9 +80,16 @@ class ShopBoxFragment : Fragment(), ShopBox.OnCountChange {
                 override fun onResponse(call : Call<Plate>,
                                         response : Response<Plate>){
                     if(response.isSuccessful){
-                        response.body()?.let{
+                        if(response.code() != 200){
+                            tvErr.text = getString(R.string.e500)
                             progressBar.visibility = View.GONE
-                            setHeader(it)
+                            tvErr.visibility = View.VISIBLE
+                        }
+                        else {
+                            response.body()?.let {
+                                progressBar.visibility = View.GONE
+                                setHeader(it)
+                            }
                         }
                     }
                 }

@@ -2,6 +2,7 @@ package com.example.ejercicio3.ui.main.homeFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,15 +99,22 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
                 override fun onResponse(call : Call<PlateListResponse>,
                                         response : Response<PlateListResponse>) {
                     if(response.isSuccessful){
-                        response.body()?.let{
-                            if(it.results.isEmpty()){
-                                tvError.text = getString(R.string.e404)
-                                progressBar.visibility = View.GONE
-                                tvError.visibility = View.VISIBLE
-                            } else {
-                                progressBar.visibility = View.GONE
-                                rvPlatesBig.visibility = View.VISIBLE
-                                setPlatesAdapter(rvPlatesBig, it.results)
+                        if(response.code() != 200){
+                            tvError.text = getString(R.string.e500)
+                            progressBar.visibility = View.GONE
+                            tvError.visibility = View.VISIBLE
+                        }
+                        else {
+                            response.body()?.let {
+                                if (it.results.isEmpty()) {
+                                    tvError.text = getString(R.string.e404)
+                                    progressBar.visibility = View.GONE
+                                    tvError.visibility = View.VISIBLE
+                                } else {
+                                    progressBar.visibility = View.GONE
+                                    rvPlatesBig.visibility = View.VISIBLE
+                                    setPlatesAdapter(rvPlatesBig, it.results)
+                                }
                             }
                         }
                     }

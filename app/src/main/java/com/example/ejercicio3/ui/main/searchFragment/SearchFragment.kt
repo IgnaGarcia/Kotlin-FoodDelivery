@@ -83,16 +83,23 @@ class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate
                     override fun onResponse(call: Call<PlateListResponse>,
                                             response: Response<PlateListResponse>) {
                         if(response.isSuccessful){
-                            response.body()?.let{
-                                if(it.results.isEmpty()){
-                                    progressBar.visibility = View.GONE
-                                    tvError.text = activity!!.getString(R.string.e404)
-                                    tvError.visibility = View.VISIBLE
-                                }
-                                else{
-                                    progressBar.visibility = View.GONE
-                                    rvPlatesCards.visibility = View.VISIBLE
-                                    setPlatesAdapter(rvPlatesCards, it.results)
+                            if(response.code() != 200){
+                                tvError.text = getString(R.string.e500)
+                                progressBar.visibility = View.GONE
+                                tvError.visibility = View.VISIBLE
+                            }
+                            else{
+                                response.body()?.let{
+                                    if(it.results.isEmpty()){
+                                        progressBar.visibility = View.GONE
+                                        tvError.text = activity!!.getString(R.string.e404)
+                                        tvError.visibility = View.VISIBLE
+                                    }
+                                    else{
+                                        progressBar.visibility = View.GONE
+                                        rvPlatesCards.visibility = View.VISIBLE
+                                        setPlatesAdapter(rvPlatesCards, it.results)
+                                    }
                                 }
                             }
                         }

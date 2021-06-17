@@ -129,11 +129,17 @@ class PlateActivity : AppCompatActivity() {
                 override fun onResponse(call : Call<Plate>,
                                         response : Response<Plate>){
                     if(response.isSuccessful){
-                        response.body()?.let{
-                            tvErr.visibility= View.GONE
+                        if(response.code() != 200){
+                            tvErr.text = getString(R.string.e500)
+                            tvErr.visibility = View.VISIBLE
+                        }
+                        else{
+                            response.body()?.let{
+                                tvErr.visibility= View.GONE
 
-                            setAppBar(it.sourceName!!)
-                            bindData(it)
+                                setAppBar(it.sourceName!!)
+                                bindData(it)
+                            }
                         }
                     }
                 }
