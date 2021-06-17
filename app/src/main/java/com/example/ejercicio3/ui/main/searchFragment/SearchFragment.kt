@@ -23,7 +23,6 @@ import retrofit2.Response
 
 class SearchFragment : Fragment(), PlatesCardAdapter.OnClickPlate
     , SearchView.OnQueryTextListener {
-    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var plateCardAdapter : PlatesCardAdapter? = null
     private var _binding : ActivitySearchBinding? = null
     private val binding get() = _binding!!

@@ -14,7 +14,6 @@ import com.example.ejercicio3.ui.main.MainActivity
 import com.example.ejercicio3.ui.start.StartActivity
 
 class ProfileFragment : Fragment() {
-    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     private var _binding : ActivityProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -39,21 +38,19 @@ class ProfileFragment : Fragment() {
         setAppBar()
         bindUserData()
 
-        val btnClear = binding.btnClear
-        btnClear.setOnClickListener{ goToStart() }
+        binding.btnClear.setOnClickListener{ goToStart() }
     }
 
     fun goToStart(){
         val i = Intent(activity, StartActivity::class.java)
-        sharedPrefManager.clearData(activity!!)
+        SharedPreferencesManager.clearData(activity!!)
         MainActivity.shopBox.clear()
         startActivity(i)
     }
 
     fun bindUserData(){
-        val user : User = sharedPrefManager.getUser(activity!!)!!
-        val tvUsername = binding.tvUsername
-        tvUsername.text = "Hola, ${user.username}"
+        val user : User = SharedPreferencesManager.getUser(activity!!)!!
+        binding.tvUsername.text = "Hola, ${user.username}"
     }
 
     fun setAppBar(){

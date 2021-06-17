@@ -20,7 +20,6 @@ import retrofit2.Response
 
 class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
     var plateCardAdapter : PlatesCardAdapter? = null
-    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     private var plates : List<Plate> = listOf()
     private lateinit var binding : ActivityPlatesListBinding
 
@@ -58,8 +57,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
                     this, LinearLayoutManager.VERTICAL, false)
         }
        else {
-            val offst = offset + 20
-            getPlates(queryId, offst)
+            getPlates(queryId, offset + 20)
         }
     }
 
@@ -122,7 +120,7 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
     //Llamado a getMorePlates
     fun chargePlates(queryId : Int){
         if (queryId == 1) {
-            val user : User = sharedPrefManager.getUser(this)!!
+            val user : User = SharedPreferencesManager.getUser(this)!!
             plates = user.favourites
             if(plates.isEmpty()){
                 binding.tvError.text = getString(R.string.e404)
@@ -135,7 +133,6 @@ class PlatesListActivity : AppCompatActivity(), PlatesCardAdapter.OnClickPlate{
         } else {
             getPlates(queryId, 0)
         }
-
     }
 
     //Setear texto y color al AppBar

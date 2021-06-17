@@ -21,9 +21,8 @@ object SharedPreferencesManager{
     }
 
     fun getUser(context: Context): User? {
-        val user = getPreferences(context)
-                .getString(USER_KEY, "")
-        return gson.fromJson(user, User::class.java)
+        return gson.fromJson(getPreferences(context)
+            .getString(USER_KEY, ""), User::class.java)
     }
 
     fun clearData(context: Context) {

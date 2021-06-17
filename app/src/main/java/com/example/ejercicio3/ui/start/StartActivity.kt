@@ -16,21 +16,15 @@ class StartActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val btnLogin = binding.btnLogin
-        btnLogin.setOnClickListener{ goToLogin() }
-
-        val btnSingUp = binding.btnSingUp
-        btnSingUp.setOnClickListener{ goToSingup() }
-
+        binding.btnLogin.setOnClickListener{ goToLogin() }
+        binding.btnSingUp.setOnClickListener{ goToSingup() }
     }
 
     private fun goToLogin(){
-        val i = Intent(this@StartActivity, LoginActivity::class.java)
-        startActivity(i)
+        startActivity(Intent(this@StartActivity, LoginActivity::class.java))
     }
 
     private fun goToSingup(){
-        val i = Intent(this@StartActivity, SignupActivity::class.java)
-        startActivity(i)
+        startActivity(Intent(this@StartActivity, SignupActivity::class.java))
     }
 }

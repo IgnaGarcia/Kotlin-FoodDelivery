@@ -20,7 +20,6 @@ import retrofit2.Response
 
 class PlateActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPlateBinding
-    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var user : User? = null
     companion object{
         const val PLATE_KEY = "platekey"
@@ -31,10 +30,9 @@ class PlateActivity : AppCompatActivity() {
         binding = ActivityPlateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        user = sharedPrefManager.getUser(this)!!
-        val tvErrorMessage = binding.tvErrorMessage
+        user = SharedPreferencesManager.getUser(this)!!
         val plate = intent.extras!!.getInt(PLATE_KEY)
-        getPlateDetails(tvErrorMessage, plate)
+        getPlateDetails(binding.tvErrorMessage, plate)
     }
 
     //Color y Texto de appbar
@@ -75,8 +73,7 @@ class PlateActivity : AppCompatActivity() {
         if(plate.dairyFree) llDairyFree.visibility =
             View.VISIBLE else llDairyFree.visibility = View.GONE
 
-        val btnBuy = binding.btnBuy
-        btnBuy.setOnClickListener {
+        binding.btnBuy.setOnClickListener {
             MainActivity.shopBox.addPlate(plate)
             goToShopBox()
         }
@@ -92,8 +89,7 @@ class PlateActivity : AppCompatActivity() {
     }
 
     fun goToShopBox(){
-        val i = Intent(this@PlateActivity, MainActivity::class.java)
-        startActivity(i)
+        startActivity(Intent(this@PlateActivity, MainActivity::class.java))
     }
 
     fun onClickFavPlate(view : View, plate : Plate){
@@ -106,7 +102,7 @@ class PlateActivity : AppCompatActivity() {
             user!!.addToFav(plate)
             view.background = this.getDrawable(R.drawable.layerlist_favourite_on)
         }
-        sharedPrefManager.saveUser(this, user!!)
+        SharedPreferencesManager.saveUser(this, user!!)
     }
 
     //Convertir la lista de ingredientes en un string

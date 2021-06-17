@@ -28,33 +28,28 @@ class MainActivity : AppCompatActivity() {
         navBottom.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.icHome -> {
-                    val fragment = HomeFragment.newInstance()
                     navBottom.visibility = View.VISIBLE
-                    openFragment(fragment)
+                    openFragment(HomeFragment.newInstance())
                     true
                 }
                 R.id.icProfile -> {
-                    val fragment = ProfileFragment.newInstance()
                     navBottom.visibility = View.VISIBLE
-                    openFragment(fragment)
+                    openFragment(ProfileFragment.newInstance())
                     true
                 }
                 R.id.icBox -> {
-                    val fragment = ShopBoxFragment.newInstance()
                     navBottom.visibility = View.GONE
-                    openFragment(fragment)
+                    openFragment(ShopBoxFragment.newInstance())
                     true
                 }
                 R.id.icSearch -> {
-                    val fragment = SearchFragment.newInstance()
                     navBottom.visibility = View.VISIBLE
-                    openFragment(fragment)
+                    openFragment(SearchFragment.newInstance())
                     true
                 }
                 else -> {
-                    val fragment = HomeFragment.newInstance()
                     navBottom.visibility = View.VISIBLE
-                    openFragment(fragment)
+                    openFragment(HomeFragment.newInstance())
                     true
                 }
             }

@@ -15,8 +15,7 @@ class PlatesCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickPlat
     : RecyclerView.Adapter<PlatesCardAdapter.BaseViewHolder>(){
 
     inner class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
-        val user : User = sharedPrefManager.getUser(itemView.context)!!
+        val user : User = SharedPreferencesManager.getUser(itemView.context)!!
         val binding = ItemPlatesCardBinding.bind(view)
         val ivPlatePhoto = binding.ivPlatePhotoCard
         val vPlateFavourite = binding.vPlateFavouriteCard
@@ -54,7 +53,7 @@ class PlatesCardAdapter(var plates : List<Plate>, var onClickPlate : OnClickPlat
                     vPlateFavourite.background = itemView.context.getDrawable(
                         R.drawable.layerlist_favourite_on)
                 }
-                sharedPrefManager.saveUser(itemView.context, user)
+                SharedPreferencesManager.saveUser(itemView.context, user)
             }
         }
     }

@@ -26,7 +26,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ShopBoxFragment : Fragment(), ShopBox.OnCountChange {
-    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var user : User? = null
     private var _binding : ActivityShopboxBinding? = null
     private val binding get() = _binding!!
@@ -49,7 +48,7 @@ class ShopBoxFragment : Fragment(), ShopBox.OnCountChange {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        user = sharedPrefManager.getUser(activity!!)!!
+        user = SharedPreferencesManager.getUser(activity!!)!!
         MainActivity.shopBox.onCountChange = this
 
         setBottomText()
@@ -99,20 +98,17 @@ class ShopBoxFragment : Fragment(), ShopBox.OnCountChange {
     fun setUpTabs(){
         val adapter = ViewPagerAdapter(childFragmentManager)
         val viewPager = binding.viewPager
-        val tabLayout = binding.tabLayout
 
         adapter.addFragment(CeliacoTabFragment(), "Celiaco")
         adapter.addFragment(CetoTabFragment(), "Cetogenico")
         adapter.addFragment(VeganTabFragment(), "Vegano")
 
         viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        binding.tabLayout.setupWithViewPager(viewPager)
     }
 
     fun setHeader(plate : Plate){
         val ivPlatePhotoDetail = binding.ivPlatePhotoDetail
-        val tvRestoTitle = binding.tvRestoTitle
-        val tvRestoStars = binding.tvRestoStars
         val llRestoVerified = binding.llRestoVerified
         val vPlateFavouriteCard = binding.vPlateFavouriteCard
         vPlateFavouriteCard.visibility = View.VISIBLE
@@ -120,8 +116,8 @@ class ShopBoxFragment : Fragment(), ShopBox.OnCountChange {
         ivPlatePhotoDetail.visibility = View.VISIBLE
         Glide.with(ivPlatePhotoDetail.context).load(plate.image).into(ivPlatePhotoDetail)
 
-        tvRestoTitle.text = plate.title
-        tvRestoStars.text = plate.spoonacularScore.toString()
+        binding.tvRestoTitle.text = plate.title
+        binding.tvRestoStars.text = plate.spoonacularScore.toString()
         if (plate.spoonacularScore > 80.0) llRestoVerified.visibility = View.VISIBLE
         else llRestoVerified.visibility = View.GONE
 
@@ -145,24 +141,18 @@ class ShopBoxFragment : Fragment(), ShopBox.OnCountChange {
             user!!.addToFav(plate)
             view.background = activity!!.getDrawable(R.drawable.layerlist_favourite_on)
         }
-        sharedPrefManager.saveUser(activity!!, user!!)
+        SharedPreferencesManager.saveUser(activity!!, user!!)
     }
 
     override fun onCountChange(){
-        val tvItemCount = binding.tvItemCount
-        val tvTotalPrice = binding.tvTotalPrice
-
-        tvItemCount.text = String.format("%d items", MainActivity.shopBox.plateList.size)
-        tvTotalPrice.text = String.format("$%.2f", MainActivity.shopBox.calcTotal())
+        binding.tvItemCount.text = String.format("%d items", MainActivity.shopBox.plateList.size)
+        binding.tvTotalPrice.text = String.format("$%.2f", MainActivity.shopBox.calcTotal())
     }
 
     fun setBottomText(){
-        val llBtnCheckout = binding.llBtnCheckout
         onCountChange()
-
-        llBtnCheckout.setOnClickListener{
-            val i = Intent(activity, CheckoutActivity::class.java)
-            startActivity(i)
+        binding.llBtnCheckout.setOnClickListener{
+            startActivity(Intent(activity, CheckoutActivity::class.java))
         }
     }
 }

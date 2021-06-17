@@ -11,7 +11,6 @@ import com.example.ejercicio3.data.local.SharedPreferencesManager
 import com.example.ejercicio3.ui.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
-    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     private lateinit var binding : ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,12 +19,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setAppBar()
-
-        val inputUser = binding.inputUsernameLogin
-        val inputPass = binding.inputPasswordLogin
-        val btnLogin = binding.btnSendLogin
-
-        btnLogin.setOnClickListener{ validate(inputUser, inputPass) }
+        binding.btnSendLogin.setOnClickListener{ validate() }
     }
 
     //Color y Texto de appbar
@@ -43,29 +37,36 @@ class LoginActivity : AppCompatActivity() {
     private fun checkLength(content : String, minLength : Int)
             : Boolean = content.length >= minLength
 
-    private fun validate(inputUser : EditText, inputPass : EditText){
+    private fun validate(){
+        val inputUser = binding.inputUsernameLogin
+        val inputPass = binding.inputPasswordLogin
         var isValidUsername = false
         var isValidPassword = false
-        val username : String = inputUser.text.toString()
-        val password : String = inputPass.text.toString()
 
         //Validacion de usuario
-        if(!checkNull(username)) inputUser.error = "El nombre de usuario es requerido"
-        else if(!checkLength(username, 3))
+        if(!checkNull(inputUser.text.toString())) {
+            inputUser.error = "El nombre de usuario es requerido"
+        }
+        else if(!checkLength(inputUser.text.toString(), 3)) {
             inputUser.error = "El nombre de usuario debe contener mas de 3 caracteres"
+        }
         else isValidUsername = true
 
         //Validacion de password
-        if(!checkNull(password)) inputPass.setError("La contraseña es requerida", null)
-        else if(!checkLength(password, 5))
+        if(!checkNull(inputPass.text.toString())) {
+            inputPass.setError("La contraseña es requerida", null)
+        }
+        else if(!checkLength(inputPass.text.toString(), 5)) {
             inputPass.setError("La contraseña debe contener mas de 5 caracteres", null)
+        }
         else isValidPassword = true
 
 
         if(isValidPassword && isValidUsername) {
             val i = Intent(this@LoginActivity, MainActivity::class.java)
-            sharedPrefManager.saveUser(this@LoginActivity,
-                User(username= username, password= password))
+            SharedPreferencesManager.saveUser(this@LoginActivity,
+                User(username= inputUser.text.toString(),
+                    password= inputPass.text.toString()))
             startActivity(i)
         }
     }

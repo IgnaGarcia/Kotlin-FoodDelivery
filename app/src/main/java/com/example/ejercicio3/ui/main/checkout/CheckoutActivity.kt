@@ -87,8 +87,7 @@ class CheckoutActivity : AppCompatActivity(), PlatesShopCardAdapter.OnClickPlate
         onCountChange()
 
         clBtnCheckout.setOnClickListener{
-            val i = Intent(this, MainActivity::class.java)
-            startActivity(i)
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }

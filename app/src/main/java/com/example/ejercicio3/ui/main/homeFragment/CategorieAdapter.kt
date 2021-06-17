@@ -16,12 +16,10 @@ class CategorieAdapter(var categories : List<Categorie>,
 
     inner class BaseViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         val binding = ItemCategorieBinding.bind(view)
-        val icCategorieIcon = binding.icCategorieIcon
-        val tvCategorieText = binding.tvCategorieText
 
         fun onBind(categorie : Categorie){
-            icCategorieIcon.background = categorie.icon
-            tvCategorieText.text = categorie.text
+            binding.icCategorieIcon.background = categorie.icon
+            binding.tvCategorieText.text = categorie.text
 
             itemView.setOnClickListener{
                 onClickCategorie.onClickCategorie(categorie.id)

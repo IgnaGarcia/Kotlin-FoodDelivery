@@ -26,7 +26,6 @@ import retrofit2.Response
 
 class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
             CategorieAdapter.OnClickCategorie {
-    private val sharedPrefManager : SharedPreferencesManager = SharedPreferencesManager
     var categorieAdapter : CategorieAdapter? = null
     var plateAdapter : PlatesBigCardAdapter? = null
     private var _binding : ActivityHomeBinding? = null
@@ -54,8 +53,7 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
         chargeCategories()
         getPlates()
 
-        val btnSeeMore = binding.btnSeeMore
-        btnSeeMore.setOnClickListener { goToPlatesListActivity(4) }
+        binding.btnSeeMore.setOnClickListener { goToPlatesListActivity(4) }
     }
 
     //Intent a partir del click en una tarjeta del RecyclerView
@@ -132,12 +130,9 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
 
     //Bindear los datos del usuario
     fun bindUserData(){
-        val user : User = sharedPrefManager.getUser(activity!!)!!
-        val tvToolbar = binding.tvToolbar
-        tvToolbar!!.text = user.location
-
-        val tvGreeting = activity?.findViewById<TextView>(R.id.tvGreeting)
-        tvGreeting!!.text = "Hola, ${user.username}"
+        val user : User = SharedPreferencesManager.getUser(activity!!)!!
+        binding.tvToolbar.text = user.location
+        binding.tvGreeting.text = "Hola, ${user.username}"
     }
 
     //Traer lista de categorias y bindear con RecyclerView
