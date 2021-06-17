@@ -61,6 +61,7 @@ class ShopBoxFragment : Fragment(), ShopBox.OnCountChange {
         binding.tvToolbar.text = activity!!.getString(R.string.myCart)
         binding.vBackBtn.setOnClickListener{
             startActivity(Intent(activity!!, MainActivity::class.java))
+            activity!!.finish()
         }
     }
 

@@ -5,8 +5,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.ejercicio3.R
-import com.example.ejercicio3.databinding.ActivityMainBinding
 import com.example.ejercicio3.data.entities.ShopBox
+import com.example.ejercicio3.databinding.ActivityMainBinding
 import com.example.ejercicio3.ui.main.homeFragment.HomeFragment
 import com.example.ejercicio3.ui.main.profileFragment.ProfileFragment
 import com.example.ejercicio3.ui.main.searchFragment.SearchFragment
@@ -28,28 +28,25 @@ class MainActivity : AppCompatActivity() {
         navBottom.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.icHome -> {
-                    navBottom.visibility = View.VISIBLE
                     openFragment(HomeFragment.newInstance())
+                    showBottomNavView()
                     true
                 }
                 R.id.icProfile -> {
-                    navBottom.visibility = View.VISIBLE
                     openFragment(ProfileFragment.newInstance())
                     true
                 }
                 R.id.icBox -> {
-                    navBottom.visibility = View.GONE
                     openFragment(ShopBoxFragment.newInstance())
                     true
                 }
                 R.id.icSearch -> {
-                    navBottom.visibility = View.VISIBLE
                     openFragment(SearchFragment.newInstance())
                     true
                 }
                 else -> {
-                    navBottom.visibility = View.VISIBLE
                     openFragment(HomeFragment.newInstance())
+                    showBottomNavView()
                     true
                 }
             }
@@ -59,9 +56,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.main_container, fragment)
+            if (fragment is ShopBoxFragment) {
+                hideBottomNavView()
+            } else if(!fragment.isAdded){
+                showBottomNavView()
+            }
+            commit()
+        }
+    }
+
+    private fun hideBottomNavView() {
+        binding.navBottom.visibility = View.GONE
+    }
+
+    fun showBottomNavView() {
+        binding.navBottom.visibility = View.VISIBLE
     }
 }

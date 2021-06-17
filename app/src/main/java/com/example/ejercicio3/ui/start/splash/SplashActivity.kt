@@ -2,6 +2,8 @@ package com.example.ejercicio3.ui.start.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ejercicio3.databinding.ActivitySplashBinding
 import com.example.ejercicio3.data.entities.User
@@ -19,12 +21,15 @@ class SplashActivity : AppCompatActivity() {
 
         val user : User? = SharedPreferencesManager.getUser(this@SplashActivity)
 
-        if(user != null) {
-            goToHome()
-        }
-        else {
-            goToStart()
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            if(user != null) {
+                goToHome()
+            }
+            else {
+                goToStart()
+            }
+            finish()
+        },1500)
     }
 
     private fun goToHome(){

@@ -18,6 +18,7 @@ import com.example.ejercicio3.data.entities.getCategories
 import com.example.ejercicio3.data.local.SharedPreferencesManager
 import com.example.ejercicio3.data.network.ApiClient
 import com.example.ejercicio3.data.network.responses.PlateListResponse
+import com.example.ejercicio3.ui.main.MainActivity
 import com.example.ejercicio3.ui.main.plate.PlateActivity
 import com.example.ejercicio3.ui.main.plateList.PlatesListActivity
 import retrofit2.Call
@@ -48,7 +49,6 @@ class HomeFragment : Fragment(), PlatesBigCardAdapter.OnClickPlate,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         bindUserData()
         chargeCategories()
         getPlates()
