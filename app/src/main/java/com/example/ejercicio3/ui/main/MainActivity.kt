@@ -1,7 +1,10 @@
 package com.example.ejercicio3.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.ejercicio3.R
@@ -57,13 +60,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun openFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.main_container, fragment)
+            replace(R.id.main_container, fragment, fragment.javaClass.toString())
             if (fragment is ShopBoxFragment) {
                 hideBottomNavView()
-            } else if(!fragment.isAdded){
+            } else {
                 showBottomNavView()
             }
             commit()
+        }
+    }
+
+    override fun onBackPressed() {
+        if(supportFragmentManager.fragments.last().tag.toString()
+            == "class com.example.ejercicio3.ui.main.homeFragment.HomeFragment"){
+            super.onBackPressed()
+        }
+        else{
+            openFragment(HomeFragment.newInstance())
+            binding.navBottom.selectedItemId = R.id.icHome
         }
     }
 
